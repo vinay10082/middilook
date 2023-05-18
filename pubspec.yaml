@@ -7,6 +7,10 @@ environment:
   sdk: '>=2.19.6 <3.0.0'
 
 dependencies:
+  # camera: ^0.9.4+5
+  get: ^4.6.5
+  image_picker: ^0.8.7
+  video_player: ^2.6.0
   flutter:
     sdk: flutter
 

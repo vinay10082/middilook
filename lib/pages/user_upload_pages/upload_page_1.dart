@@ -1,5 +1,11 @@
+import 'dart:io';
+
+
 import 'package:flutter/material.dart';
-import '../../utils/upload__utils/close_button.dart';
+import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:middilook/pages/home_page.dart';
+import 'package:middilook/pages/user_upload_pages/upload_page_2.dart';
 
 class UserUpload extends StatefulWidget {
   const UserUpload({super.key});
@@ -10,21 +16,65 @@ class UserUpload extends StatefulWidget {
 
 class _UserUploadState extends State<UserUpload> {
 
+
+  void getVideoFile(ImageSource sourceImg) async {
+
+  final videoFile = await ImagePicker().pickVideo(source: sourceImg);
+      
+
+    if(videoFile != null){
+      Get.to(UploadForm(videoFile: File(videoFile.path), videoPath: videoFile.path));
+      }
+  }
+          //   onPressed: () {
+          //   getVideoFile(ImageSource.camera);
+          //   },
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
-          
-          Padding(padding: EdgeInsets.all(10.0),
-            child: Container(
-              alignment: Alignment.topRight,
-              child:CrossButton(),
-            )
+          Container(
+            alignment: Alignment.topRight,
+            child: IconButton(
+              onPressed: () {
+                Get.to(MyHome());
+              },
+              icon: Icon(Icons.close_sharp),
+              iconSize: 40.0,
+              ),
+          ),
+          Container(
+            alignment: Alignment.center,
+            child: Column(
+              children: [
+                Icon(Icons.cloud_upload_outlined, size: 500.0, color: Colors.blue,),
+                Text('Upload Maximum 30 Seconds Video', style: TextStyle(fontSize: 30.0),)
+              ],
             ),
-        ]
-        
-      ),
+          ),
+          Container(
+            alignment: Alignment.bottomCenter,
+            child: IconButton(
+              onPressed: () {
+                getVideoFile(ImageSource.camera);
+              },
+              icon: Icon(Icons.video_camera_back_outlined),
+              iconSize: 60.0,
+              ),
+          ),
+          Container(
+            alignment: Alignment.bottomRight,
+            child: IconButton(
+              onPressed: () {
+                getVideoFile(ImageSource.gallery);
+              },
+              icon: Icon(Icons.file_upload_sharp),
+              iconSize: 60.0,
+              ),
+          )
+        ],
+      )
     );
   }
 }
