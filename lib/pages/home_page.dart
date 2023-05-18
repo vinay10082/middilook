@@ -21,6 +21,7 @@ class _MyHomeState extends State<MyHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       body: Stack(
         children: [
           PageView(
@@ -32,7 +33,7 @@ class _MyHomeState extends State<MyHome> {
         alignment: FractionalOffset.bottomCenter,
         child: Padding(padding: EdgeInsets.only(bottom: 10.0),
             child: BottomButton(
-              bottomicon: Icons.add_circle_outline_sharp,
+              bottomicon: Icons.add_box,
               )
             )
         ),

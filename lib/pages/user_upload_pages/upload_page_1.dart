@@ -35,6 +35,7 @@ class _UserUploadState extends State<UserUpload> {
       body: Stack(
         children: [
           Container(
+            padding: EdgeInsets.fromLTRB(0, 40.0, 0, 0),
             alignment: Alignment.topRight,
             child: IconButton(
               onPressed: () {
@@ -45,11 +46,12 @@ class _UserUploadState extends State<UserUpload> {
               ),
           ),
           Container(
+            padding: EdgeInsets.fromLTRB(0, 200.0, 0, 0),
             alignment: Alignment.center,
             child: Column(
               children: [
-                Icon(Icons.cloud_upload_outlined, size: 500.0, color: Colors.blue,),
-                Text('Upload Maximum 30 Seconds Video', style: TextStyle(fontSize: 30.0),)
+                Icon(Icons.cloud_upload_outlined, size: 200.0, color: Colors.blue,),
+                Text('Upload Maximum 30 Seconds Video', style: TextStyle(fontSize: 20.0),)
               ],
             ),
           ),
