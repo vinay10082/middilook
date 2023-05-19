@@ -23,7 +23,7 @@ class _UserUploadState extends State<UserUpload> {
       
 
     if(videoFile != null){
-      Get.to(UploadForm(videoFile: File(videoFile.path), videoPath: videoFile.path));
+      Get.to(UploadPlayer(videoFile: File(videoFile.path), videoPath: videoFile.path));
       }
   }
           //   onPressed: () {
@@ -39,7 +39,7 @@ class _UserUploadState extends State<UserUpload> {
             alignment: Alignment.topRight,
             child: IconButton(
               onPressed: () {
-                Get.to(MyHome());
+                Get.off(MyHome());
               },
               icon: Icon(Icons.close_sharp),
               iconSize: 40.0,

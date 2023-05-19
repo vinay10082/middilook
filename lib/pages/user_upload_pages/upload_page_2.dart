@@ -1,20 +1,22 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:middilook/pages/user_upload_pages/upload_page_3.dart';
 import 'package:video_player/video_player.dart';
 
-class UploadForm extends StatefulWidget {
+class UploadPlayer extends StatefulWidget {
 
-  const UploadForm({super.key, required this.videoFile, required this.videoPath});
+  const UploadPlayer({super.key, required this.videoFile, required this.videoPath});
   
   final File videoFile;
   final String videoPath;
 
   @override
-  State<UploadForm> createState() => _UploadFormState();
+  State<UploadPlayer> createState() => _UploadPlayerState();
 }
 
-class _UploadFormState extends State<UploadForm> {
+class _UploadPlayerState extends State<UploadPlayer> {
 
   VideoPlayerController? playerController;
 
@@ -36,9 +38,9 @@ class _UploadFormState extends State<UploadForm> {
   @override
   void dispose() {
     // TODO: implement dispose
-    super.dispose();
-
     playerController!.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -47,13 +49,51 @@ class _UploadFormState extends State<UploadForm> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-
-
             //display video player
             SizedBox(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 1.1,
-              child: VideoPlayer(playerController!),
+              height: MediaQuery.of(context).size.height/1.07,
+              child: Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  VideoPlayer(playerController!),
+                  FloatingActionButton(
+                    elevation: 0.0,
+                    backgroundColor: Colors.transparent,
+                    onPressed:() {
+                    setState(() {
+                      
+                      if(playerController!.value.isPlaying){
+                        playerController!.pause();
+                      }
+                      else{
+                        playerController!.play();
+                      }
+                    });
+                  },
+                  child: Icon(
+                    playerController!.value.isPlaying ? Icons.pause : Icons.play_arrow,
+                  ),
+                  )
+                ]
+              )
+            ),
+            Row(
+              children: <Widget>[
+                Container(
+                  width: MediaQuery.of(context).size.width/1.2,
+                  child: Text('video max length is 30 sec'),
+                ),
+                FloatingActionButton(
+                  backgroundColor: Colors.black,
+                  shape: ContinuousRectangleBorder(),
+                  onPressed:() {
+                    playerController!.pause();
+                    Get.to(UploadDetail());
+                  },
+                  child: Icon(Icons.arrow_forward_ios),
+                )
+              ],
             )
           ],
         ),

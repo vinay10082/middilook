@@ -23,8 +23,10 @@ class _MyHomeState extends State<MyHome> {
     return Scaffold(
       
       body: Stack(
-        children: [
-          PageView(
+      
+      children: [
+      
+      PageView(
         controller: _controller,
         scrollDirection: Axis.vertical,
       children: [Post1(), Post2(), Post3()],
@@ -39,17 +41,6 @@ class _MyHomeState extends State<MyHome> {
         ),
         ]
       )
-      
-    
-      
-      // bottomNavigationBar: BottomNavigationBar(
-      //   type: BottomNavigationBarType.fixed,
-      //   items: [
-      //   BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-      //   BottomNavigationBarItem(icon: Icon(Icons.add_sharp), label: ''),
-      //   BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
-      // ],)
-
     );
   }
 }
