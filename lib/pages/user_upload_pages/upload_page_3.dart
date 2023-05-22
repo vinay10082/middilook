@@ -108,9 +108,9 @@ class _UploadDetailState extends State<UploadDetail> {
                 context
                 );
               }
-              setState(() {
-                //for the progress bar
-              });
+              // setState(() {
+              //   //for the progress bar
+              // });
             },
             child: const Center(
               child: Text(
