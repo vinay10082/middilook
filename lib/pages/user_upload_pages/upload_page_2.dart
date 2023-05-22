@@ -88,7 +88,7 @@ class _UploadPlayerState extends State<UploadPlayer> {
                   shape: ContinuousRectangleBorder(),
                   onPressed:() {
                     playerController!.pause();
-                    Get.to(UploadDetail());
+                    Get.to(UploadDetail(videoFile: widget.videoFile, videoPath: widget.videoPath));
                   },
                   child: Icon(Icons.arrow_forward_ios),
                 )

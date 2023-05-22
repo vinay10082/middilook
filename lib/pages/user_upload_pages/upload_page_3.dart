@@ -1,16 +1,27 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:middilook/pages/home_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../server/upload_video/upload_controller.dart';
+
 class UploadDetail extends StatefulWidget {
-  const UploadDetail({super.key});
+  const UploadDetail({super.key, required this.videoFile, required this.videoPath});
+  
+  final File videoFile;
+  final String videoPath;
 
   @override
   State<UploadDetail> createState() => _UploadDetailState();
 }
 
 class _UploadDetailState extends State<UploadDetail> {
+
+  UploadController uploadVideoController = Get.put(UploadController());
+  TextEditingController descriptionTextEditingController = TextEditingController();
+  TextEditingController purchaseLinkTextEditingController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,12 +95,33 @@ class _UploadDetailState extends State<UploadDetail> {
               labelText: 'Paster URL'
             ),
           ),
-          FloatingActionButton.extended(
-            onPressed:() {
-              Get.off(MyHome());
+          InkWell(
+            onTap: ()
+            {
+              if(descriptionTextEditingController.text.isNotEmpty && purchaseLinkTextEditingController.text.isNotEmpty)
+              {
+                uploadVideoController.saveVideoInformationToFirestoreDatabase
+                (
+                descriptionTextEditingController.text, 
+                purchaseLinkTextEditingController.text, 
+                widget.videoPath,
+                context
+                );
+              }
+              setState(() {
+                //for the progress bar
+              });
             },
-            label: Text('Create'),
-            backgroundColor: Colors.grey,
+            child: const Center(
+              child: Text(
+                "Create",
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.grey,
+                  fontWeight: FontWeight.w700,
+                )
+              ),
+            ),
           )
         ],
       ),
