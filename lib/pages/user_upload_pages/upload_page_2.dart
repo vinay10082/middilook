@@ -85,7 +85,6 @@ class _UploadPlayerState extends State<UploadPlayer> {
                   child: Text('video max length is 30 sec'),
                 ),
                 FloatingActionButton(
-                  backgroundColor: Colors.black,
                   shape: ContinuousRectangleBorder(),
                   onPressed:() {
                     playerController!.pause();

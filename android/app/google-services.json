@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "227991435834",
+    "project_id": "middi-look",
+    "storage_bucket": "middi-look.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:227991435834:android:684df61718970e8be05303",
+        "android_client_info": {
+          "package_name": "com.team.middilook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "227991435834-7pu85nmbvf4a9uqf8cvgmersm164jg3p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4PfQqgnCY88JLC_PqfoAKiQgGcOkBpEU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "227991435834-7pu85nmbvf4a9uqf8cvgmersm164jg3p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

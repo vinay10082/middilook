@@ -13,6 +13,9 @@ dependencies:
   video_player: ^2.6.0
   url_launcher: ^6.0.9
   flutter_native_splash: ^2.2.4
+  firebase_core: ^2.7.1
+  cloud_firestore: ^4.4.4
+  firebase_storage: ^11.0.15
   flutter:
     sdk: flutter
 
@@ -37,5 +40,6 @@ flutter_native_splash:
   ios: true
   web: false
   color: "#000000"
+  image: "lib/assets/logo.png"
   android_12:
     image: "lib/assets/logo.png"
