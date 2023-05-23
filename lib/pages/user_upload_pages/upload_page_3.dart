@@ -30,16 +30,23 @@ class _UploadDetailState extends State<UploadDetail> {
           SizedBox(
             height: 20.0,
           ),
-          TextFormField(
+          Container(
+            width: MediaQuery.of(context).size.width,
+            margin: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: TextFormField(autocorrect: true,
+            controller: descriptionTextEditingController,
             decoration: const InputDecoration(
-              hintText: 'video description here',
-              labelText: 'Description'
+            labelText: "Description",
+            ),
             ),
           ),
           SizedBox(
             height: 20.0,
           ),
-          Text('Select Stores and paste your product link below'),
+          Text("Select Stores and paste your product link below", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+          SizedBox(
+            height: 20.0,
+          ),
           Table(
             border: TableBorder.all(),
             children: [
@@ -47,19 +54,19 @@ class _UploadDetailState extends State<UploadDetail> {
                 children: [
                 IconButton(
                 onPressed:() {
-                launch('https://www.amazon.in/gp/css/order-history');
+                launchUrl(Uri.parse('https://www.amazon.in/gp/css/order-history'));
                 },
                 icon: Image.asset('lib/assets/amazon.png'),
                  ),
                 IconButton(
                 onPressed:() {
-                launch('https://www.flipkart.com/rv/orders');
+                launchUrl(Uri.parse('https://www.flipkart.com/rv/orders'));
                 },
                 icon: Image.asset('lib/assets/flipkart.png'),
                  ),
                 IconButton(
                 onPressed:() {
-                launch('https://smo.shopclues.com/myorders');
+                launchUrl(Uri.parse('https://smo.shopclues.com/myorders'));
                 },
                 icon: Image.asset('lib/assets/shopclues.png'),
                  ),
@@ -69,19 +76,19 @@ class _UploadDetailState extends State<UploadDetail> {
                 children: [
                 IconButton(
                 onPressed:() {
-                launch('https://m.snapdeal.com/myorders');
+                launchUrl(Uri.parse('https://m.snapdeal.com/myorders'));
                 },
                  icon: Image.asset('lib/assets/snapdeal.png'),
                  ),
                 IconButton(
                 onPressed:() {
-                launch('https://www.myntra.com/my/orders');
+                launchUrl(Uri.parse('https://www.myntra.com/my/orders'));
                 },
                  icon: Image.asset('lib/assets/myntra.png'),
                  ),
                 IconButton(
                 onPressed:() {
-                launch('https://www.ajio.com/my-account/orders');
+                launchUrl(Uri.parse('https://www.ajio.com/my-account/orders'));
                 },
                  icon: Image.asset('lib/assets/ajio.png'),
                  ),
@@ -89,10 +96,17 @@ class _UploadDetailState extends State<UploadDetail> {
               ),
             ],
           ),
-          TextFormField(
+          SizedBox(
+            height: 20.0,
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            margin: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: TextFormField(autocorrect: true,
+            controller: purchaseLinkTextEditingController,
             decoration: const InputDecoration(
-              hintText: 'Product link here "https://..."',
-              labelText: 'Paster URL'
+            labelText: "Paste Link Here",
+            ),
             ),
           ),
           InkWell(
