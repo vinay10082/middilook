@@ -67,9 +67,9 @@ class UploadController extends GetxController{
       //3. save overall video info to firestore database
       Video videoObject = Video(
         videoID: videoID,
-        totalShares: 0,
         description: description,
         purchaseLink: purchaseLink,
+        purchaseLinkCount: 0,
         videoUrl: videodownloadUrl,
         thumbnailUrl: thumbnaildownloadUrl,
         publishedDateTime: DateTime.now().millisecondsSinceEpoch,

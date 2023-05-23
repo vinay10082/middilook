@@ -8,10 +8,10 @@ class Video
   String? videoID;
   int? totalComments;
   List? likesList;
-  int? totalShares;
   String? artistSongName;
   String? description;
   String? purchaseLink;
+  int? purchaseLinkCount;
   String? videoUrl;
   String? thumbnailUrl;
   int? publishedDateTime;
@@ -22,10 +22,10 @@ class Video
     this.videoID,
     this.totalComments,
     this.likesList,
-    this.totalShares,
     this.artistSongName,
     this.description,
     this.purchaseLink,
+    this.purchaseLinkCount,
     this.videoUrl,
     this.thumbnailUrl,
     this.publishedDateTime,
@@ -38,10 +38,10 @@ class Video
     "videoID": videoID,
     "totalComments": totalComments,
     "likesList": likesList,
-    "totalShares": totalShares,
     "artistSongName": artistSongName,
     "description": description,
     "purchaseLink": purchaseLink,
+    "purchaseLinkCount": purchaseLinkCount,
     "videoUrl": videoUrl,
     "thumbnailUrl": thumbnailUrl,
     "publishedDateTime": publishedDateTime,
@@ -60,6 +60,7 @@ class Video
       artistSongName: docSnapshot["artistSongName"],
       description: docSnapshot["description"],
       purchaseLink: docSnapshot["purchaseLink"],
+      purchaseLinkCount: docSnapshot["purchaseLinkCount"],
       videoUrl: docSnapshot["videoUrl"],
       thumbnailUrl: docSnapshot["thumbnailUrl"],
       publishedDateTime: docSnapshot["publishedDateTime"]
