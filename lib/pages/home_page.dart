@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:middilook/utils/posthome_utils/home_video_display.dart';
+import 'package:video_player/video_player.dart';
 
 
 import '../server/home_video_display/home_video_controller.dart';
@@ -33,6 +34,8 @@ class _MyHomeState extends State<MyHome> {
           itemBuilder: ((context, index) {
 
             final eachVideoInfo = controllerHomeVideos.homeAllVideosList[index];
+
+            VideoPlayerController? playerController;
 
             return Stack(
               children: [
