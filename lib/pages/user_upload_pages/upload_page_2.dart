@@ -49,16 +49,17 @@ class _UploadPlayerState extends State<UploadPlayer> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            //display video player
+            // display video player
             SizedBox(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height/1.07,
+              height: MediaQuery.of(context).size.height,
               child: Stack(
-                alignment: Alignment.bottomCenter,
                 children: [
                   VideoPlayer(playerController!),
-                  FloatingActionButton(
-                    elevation: 0.0,
+                  Container(
+                  alignment: Alignment.bottomCenter,
+                  child:FloatingActionButton(
+                    elevation: 0,
                     backgroundColor: Colors.transparent,
                     onPressed:() {
                     setState(() {
@@ -73,30 +74,31 @@ class _UploadPlayerState extends State<UploadPlayer> {
                   },
                   child: Icon(
                     playerController!.value.isPlaying ? Icons.pause : Icons.play_arrow,
+                    color: Colors.white,
                   ),
                   )
-                ]
-              )
-            ),
-            Row(
-              children: <Widget>[
-                Container(
-                  width: MediaQuery.of(context).size.width/1.2,
-                  child: Text('video max length is 30 sec'),
-                ),
-                FloatingActionButton(
-                  shape: ContinuousRectangleBorder(),
+                  ),
+                  Container(
+                  alignment: Alignment.bottomRight,
+                  child: FloatingActionButton(
+                  shape: BeveledRectangleBorder(
+                    borderRadius: BorderRadius.zero
+                  ),
                   onPressed:() {
                     playerController!.pause();
                     Get.to(UploadDetail(videoFile: widget.videoFile, videoPath: widget.videoPath));
                   },
-                  child: Icon(Icons.arrow_forward_ios),
+                  child: Icon(Icons.arrow_forward_ios,
+                  color: Colors.white,
+                  ),
                 )
-              ],
-            )
-          ],
-        ),
-      ),
+                  )
+                    ],
+                  ),
+            ),
+          ]
+        )
+      )
     );
   }
 }
