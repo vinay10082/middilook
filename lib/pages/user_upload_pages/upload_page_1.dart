@@ -36,12 +36,11 @@ class _UserUploadState extends State<UserUpload> {
         children: [
           Container(
             padding: EdgeInsets.fromLTRB(0, 40.0, 0, 0),
-            alignment: Alignment.topRight,
             child: IconButton(
               onPressed: () {
                 Get.off(MyHome());
               },
-              icon: Icon(Icons.close_sharp),
+              icon: Icon(Icons.arrow_back),
               iconSize: 40.0,
               ),
           ),
