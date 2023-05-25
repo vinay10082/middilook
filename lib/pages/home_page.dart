@@ -24,6 +24,7 @@ class _MyHomeState extends State<MyHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
+
         children: [
 
       Obx(() {
@@ -40,11 +41,12 @@ class _MyHomeState extends State<MyHome> {
             return Stack(
               children: [
                 
+                
                 //home video display
                 HomeVideoPlayer(videoFileUrl: eachVideoInfo.videoUrl.toString()),
 
-                //left side part
-                  Padding(padding: const EdgeInsets.fromLTRB(0.0, 0.0, 20.0, 100.0),
+          //right side part
+          Padding(padding: const EdgeInsets.fromLTRB(0.0, 0.0, 20.0, 100.0),
           child: Container(alignment: Alignment(1,1),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -64,7 +66,7 @@ class _MyHomeState extends State<MyHome> {
         ),
 
         //left side part
-                  Padding(padding: const EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 100.0),
+        Padding(padding: const EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 100.0),
           child: Container(
             alignment: Alignment(-1, 1),
             child: Column(
@@ -93,121 +95,24 @@ class _MyHomeState extends State<MyHome> {
           );
       }),
 
-      //this bottom button
-      Align(
-        alignment: FractionalOffset.bottomCenter,
-        child: Padding(padding: EdgeInsets.only(bottom: 10.0),
-            child: BottomButton(
-              bottomicon: Icons.add_box,
-              )
-            )
-        ),
-
-        //this is option button
-        Container(
-          child: IconButton(
+      //this is option button
+        IconButton(
             onPressed: () {
               
             },
             icon: Icon(Icons.list_outlined),
             iconSize: 30,
             padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
-            )
-        ),
+            ),
+
+      //this bottom button
+      Container(
+        alignment: Alignment.bottomCenter,
+        padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
+        child: BottomButton(bottomicon: Icons.add_box,)
+      )
         ],
       )
     );
   }
 }
-//       Obx(() {
-//         return PageView.builder(
-//           itemCount: controllerHomeVideos.homeAllVideosList.length,
-//           controller: PageController(initialPage: 0, viewportFraction: 1),
-//           scrollDirection: Axis.vertical,
-//           itemBuilder: ((context, index) {
-
-//             final eachVideoInfo = controllerHomeVideos.homeAllVideosList[index];
-
-//             playerController = VideoPlayerController.network(eachVideoInfo.videoUrl.toString())
-//             ..initialize().then((value) {
-
-//               playerController!.play();
-//               playerController!.setLooping(true);
-//               playerController!.setVolume(2);
-//             });
-            
-//             return Stack(
-//               children: [
-
-//                 //video Display
-//                 Container(
-//                   width: MediaQuery.of(context).size.width,
-//                   height: MediaQuery.of(context).size.height,
-//                   decoration: const BoxDecoration(
-//                     color: Colors.black,
-//                   ),
-//                   child: VideoPlayer(playerController!),
-//                   ),
-
-//         //           //right side button
-//         //           Padding(padding: const EdgeInsets.fromLTRB(0.0, 0.0, 20.0, 100.0),
-//         //   child: Container(alignment: Alignment(1,1),
-//         //   child: Column(
-//         //     mainAxisAlignment: MainAxisAlignment.end,
-//         //     children: [
-//         //       MyButton(
-//         //       icon: Icons.link,
-//         //       text: '201',
-//         //       ),
-//         //       MyButton(
-//         //       icon: Icons.send_outlined,
-//         //       text: 'Share',
-//         //       ),
-
-//         //     ],
-//         //     ),
-//         //   ),
-//         // ),
-        
-//                   //left side button
-//           //         Padding(padding: const EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 100.0),
-//           // child: Container(
-//           //   alignment: Alignment(-1, 1),
-//           //   child: Column(
-//           //     crossAxisAlignment: CrossAxisAlignment.start,
-//           //     mainAxisAlignment: MainAxisAlignment.end,
-//           //     children: [
-//           //       Text('@'+ username,
-//           //       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white),),
-//           //       SizedBox(
-//           //         height: 10,
-//           //       ),
-//           //       RichText(text: TextSpan(
-//           //         children: [
-//           //           TextSpan(text: description, style: TextStyle(color: Colors.white)),
-//           //           TextSpan(text: '#flutter', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
-//           //         ]
-//           //          ))
-//           //     ]),
-//           //   ),
-//           // ),
-
-//       //     //bottom side button
-//       // Align(
-//       //   alignment: FractionalOffset.bottomCenter,
-//       //   child: Padding(padding: EdgeInsets.only(bottom: 10.0),
-//       //       child: BottomButton(
-//       //         bottomicon: Icons.add_box,
-//       //         )
-//       //       )
-//       //   ),
-//           ],
-//         );
-//       }),
-//     );
-//       }
-//       ),
-//     );
-
-//   }
-// }

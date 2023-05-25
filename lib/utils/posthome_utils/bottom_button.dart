@@ -10,8 +10,7 @@ class BottomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: IconButton(
+    return IconButton(
               icon: Icon(bottomicon),
               iconSize: 50,
               color: Colors.white, 
@@ -19,8 +18,7 @@ class BottomButton extends StatelessWidget {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => UserUpload()));
                },
           
-        ),
-    );
+        );
   }
 
 }

@@ -34,7 +34,7 @@ flutter:
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "lib/assets/logo_icon.png"
+  image_path: "lib/assets/logo.png"
 
 flutter_native_splash:
   android: true
