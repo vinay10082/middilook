@@ -42,6 +42,7 @@ bool _showPlayPauseButton = false;
     return Stack(
       children: [
     Container(
+      padding: EdgeInsets.fromLTRB(0, 40, 0, 40),
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       decoration: const BoxDecoration(

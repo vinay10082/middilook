@@ -14,7 +14,7 @@ class MyButton extends StatelessWidget {
     child: Column(children: [
       Icon(
         icon,
-        size: 40,
+        size: 30,
         color: Colors.white
       ),
       SizedBox(
