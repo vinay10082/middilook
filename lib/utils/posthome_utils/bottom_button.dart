@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../pages/user_upload_pages/upload_page_1.dart';
 
@@ -15,7 +16,7 @@ class BottomButton extends StatelessWidget {
               iconSize: 50,
               color: Colors.white, 
               onPressed: () { 
-                Navigator.push(context, MaterialPageRoute(builder: (context) => UserUpload()));
+                Get.to(UserUpload());
                },
           
         );

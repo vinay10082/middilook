@@ -32,18 +32,9 @@ class _UserUploadState extends State<UserUpload> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Stack(
         children: [
-          Container(
-            padding: EdgeInsets.fromLTRB(0, 40.0, 0, 0),
-            child: IconButton(
-              onPressed: () {
-                Get.off(MyHome());
-              },
-              icon: Icon(Icons.arrow_back),
-              iconSize: 40.0,
-              ),
-          ),
           Container(
             padding: EdgeInsets.fromLTRB(0, 200.0, 0, 0),
             alignment: Alignment.center,

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:middilook/pages/profile_pages/profile_pages.dart';
+import 'package:middilook/pages/setting_pages/setting_page.dart';
 
 class MyDrawer extends StatefulWidget {
   const MyDrawer({super.key});
@@ -13,7 +16,8 @@ class _MyDrawerState extends State<MyDrawer> {
     return Container(
       child: Column(
         children: [
-          Container(
+          GestureDetector(
+            child: Container(
               child: UserAccountsDrawerHeader(
                   decoration: BoxDecoration(
                     color: Colors.pink,
@@ -28,45 +32,49 @@ class _MyDrawerState extends State<MyDrawer> {
                   currentAccountPicture: ClipOval(child: Image.asset('lib/assets/profile.png')),
                 )
             ),
+             onTap: () {
+                Get.to(MyProfile());
+              },
+              ),
             Container(
-              height: MediaQuery.of(context).size.height,
+              height: MediaQuery.of(context).size.height/1.4,
               child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(
                   child: Column(
                     children: [
-                      ListTile(
-              leading: Icon(Icons.abc),
-              title: Text('option 1'),
+                      
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('Settings'),
               onTap: () {
-                
+                Get.to(MySetting());
               },
             ),
-            ListTile(
-              leading: Icon(Icons.abc),
-              title: Text('option 2'),
-              onTap: () {
+                ListTile(
+                  leading: Icon(Icons.logout),
+                  title: Text('Log Out'),
+                  onTap: () {
                 
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.abc),
-              title: Text('option 3'),
-              onTap: () {
-                
-              },
-            )
+                  },
+                ),
                     ],
                   ),
                 ),
 
-                //this is footor
-                Column(
-                  children: <Widget>[
-                    Image.asset('lib/assets/logo.png')
-                  ],
-                ),
+                //this is log out button
+
+                //this is footer
+                
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset("lib/assets/logo_icon.png", width: 25, height: 25),
+                      SizedBox(width: 20),
+                      Image.asset("lib/assets/logo.png", width: 150)
+                    ],
+                  )    
               ],
             ),
             ),
