@@ -1,14 +1,18 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get/get.dart';
 import 'package:middilook/pages/home_page.dart';
+import 'package:middilook/server/authentication/authentication_controller.dart';
 // import 'package:middilook/pages/upload_page.dart';
 
 void main() async
 {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp();
+  await Firebase.initializeApp().then((value)
+  {
+    Get.put(AuthenticationController());
+  });
 
   runApp(const MainApp());
 }
@@ -37,11 +41,6 @@ class PageController extends StatefulWidget {
 }
 
 class _PageControllerState extends State<PageController> {
-
-  // final List<Widget> pages = [
-  //   MyHome(),
-  //   UserUpload(),
-  // ];
 
   @override
   Widget build(BuildContext context) {

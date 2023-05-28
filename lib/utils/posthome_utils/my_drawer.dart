@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:middilook/pages/authentication_page/login_page.dart';
 import 'package:middilook/pages/profile_pages/profile_pages.dart';
 import 'package:middilook/pages/setting_pages/setting_page.dart';
-
-import '../../pages/authentication_page/login_signup_page.dart';
 
 class MyDrawer extends StatefulWidget {
   const MyDrawer({super.key});
@@ -65,7 +64,7 @@ class _MyDrawerState extends State<MyDrawer> {
                   leading: Icon(Icons.logout),
                   title: Text('SignIn / SignOut'),
                   onTap: () {
-                    Get.to(MyAuthentication());
+                    Get.to(MyLoginAuth());
                   },
                 ),
                     ],
