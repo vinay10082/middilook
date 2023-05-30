@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
 
-class MyButton extends StatelessWidget {
+class MyRightButtons extends StatelessWidget {
 
   final icon;
   final String text;
 
-  const MyButton({this.icon, required this.text});
+  const MyRightButtons({required this.icon, required this.text});
 
   @override
   Widget build(BuildContext context) {
     return Padding(padding: const EdgeInsets.symmetric(vertical: 15.0),
     
     child: Column(children: [
-      Icon(
-        icon,
-        size: 30,
-        color: Colors.white
-      ),
+      IconButton(
+        onPressed: ()
+        {
+          
+        }, 
+        icon: icon,
+        ),
       SizedBox(
         height: 10,
       ),

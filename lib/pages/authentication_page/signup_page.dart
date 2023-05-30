@@ -84,16 +84,17 @@ class _MySignupAuthState extends State<MySignupAuth> {
                 ),
                 child: InkWell(
                   onTap: () {
-                    setState(() {
-                      showProgressBar = true;
-                    });
-                    
                     if(
                       authenticationController.profileImage != null 
                       && userNameTextEditingController.text.isNotEmpty
                       && emailTextEditingController.text.isNotEmpty
                       && passwordTextEditingController.text.isNotEmpty)
                       {
+                      //to show progress bar
+                      setState(() {
+                      showProgressBar = true;
+                      });
+
                     //Create a new account for user
                     authenticationController.createAccountForNewUser(
                       authenticationController.profileImage!, 

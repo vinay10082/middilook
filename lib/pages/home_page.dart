@@ -5,9 +5,10 @@ import 'package:video_player/video_player.dart';
 
 
 import '../server/home_video_display/home_video_controller.dart';
-import '../utils/posthome_utils/bottom_button.dart';
-import '../utils/posthome_utils/my_drawer.dart';
-import '../utils/posthome_utils/right_button.dart';
+import '../utils/posthome_utils/bottom_buttons_bar.dart';
+import '../utils/posthome_utils/circular_image_animation.dart';
+import '../utils/posthome_utils/horizontal_Scrolling_Text.dart';
+import '../utils/posthome_utils/right_side_button.dart';
 
 class MyHome extends StatefulWidget {
 
@@ -22,18 +23,10 @@ class _MyHomeState extends State<MyHome> {
   //controller for video display screen
   final ControllerHomeVideos controllerHomeVideos = Get.put(ControllerHomeVideos());
 
-  //controller for app drawer
-  GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _globalKey,
-      drawer: Drawer(
-        child: SingleChildScrollView(
-          child: MyDrawer(),
-        ),
-      ),
       body: Stack(
         
         children: [
@@ -53,22 +46,74 @@ class _MyHomeState extends State<MyHome> {
               children: [
                 
                 
-                //home video display
-                HomeVideoPlayer(videoFileUrl: eachVideoInfo.videoUrl.toString()),
+          //home video display
+          HomeVideoPlayer(videoFileUrl: eachVideoInfo.videoUrl.toString()),
 
           //right side part
-          Padding(padding: const EdgeInsets.fromLTRB(0.0, 0.0, 20.0, 100.0),
+          Padding(padding: const EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 70.0),
           child: Container(alignment: Alignment(1,1),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              MyButton(
-              icon: Icons.link,
-              text: '201',
+              MyRightButtons(
+              icon: ImageIcon(
+                AssetImage('lib/assets/goToLink.png'),
+                size: 40,
+                color: Colors.white,
               ),
-              MyButton(
-              icon: Icons.share,
+              text: eachVideoInfo.purchaseLinkCount.toString(),
+              ),
+              MyRightButtons(
+              icon: Icon(
+                Icons.share,
+                size: 40,
+                color: Colors.white,
+                ),
               text: 'Share',
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              //Profile circular Animation
+              CircularImageAnimation(
+                widgetAnimation: SizedBox(
+                  width: 62,
+                  height: 62,
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(12),
+                        height: 52,
+                        width: 52,
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            colors: [
+                              Colors.red,
+                              Colors.orange,
+                              Colors.yellow,
+                              Colors.green,
+                              Colors.blue,
+                              Colors.indigo,
+                              Colors.purple,
+                            ]
+                            ),
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(25),
+                          child: Image.asset("lib/assets/music.png",
+                            fit: BoxFit.cover,
+                            ),
+                          )
+                        // Image(
+                        //   image: NetworkImage(
+                        //     eachVideoInfo.userProfileImage.toString(),
+                        //   ),
+                        //   )
+                      )
+                  ],
+                  ),
+                ),
               ),
 
             ],
@@ -77,24 +122,47 @@ class _MyHomeState extends State<MyHome> {
         ),
 
         //left side part
-        Padding(padding: const EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 100.0),
+        Padding(padding: const EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 70),
           child: Container(
             alignment: Alignment(-1, 1),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text('@'+ "vinay",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white),),
+                Text('@ ' + eachVideoInfo.userName.toString(),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),),
                 SizedBox(
                   height: 10,
                 ),
-                RichText(text: TextSpan(
+                Container(
+                  width: MediaQuery.of(context).size.width/2,
+                  child: RichText(
+                  text: TextSpan(
                   children: [
-                    TextSpan(text: "this is review video", style: TextStyle(color: Colors.white)),
-                    TextSpan(text: '#flutter', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+                    TextSpan(text: eachVideoInfo.description.toString(), style: TextStyle(color: Colors.white, fontSize: 16,)),
+                    TextSpan(text: ' #flutter', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontStyle: FontStyle.italic)),
                   ]
-                   ))
+                   )),
+                ),
+                   SizedBox(
+                  height: 10,
+                ),
+
+                Row(
+                  children: [
+                    const Icon(Icons.music_note_outlined),
+                    const SizedBox(
+                      width: 20
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width/2,
+                      child: const MyScrollingText(
+                              text: "This is the song name of the short video",
+                              textStyle: TextStyle(fontStyle: FontStyle.italic),
+                            ) 
+                    ),
+                  ],
+                  )
               ]),
             ),
           ),
@@ -106,20 +174,15 @@ class _MyHomeState extends State<MyHome> {
           );
       }),
 
-      //this is option button
-        IconButton(
-            onPressed: () {
-              _globalKey.currentState?.openDrawer();
-            },
-            icon: Icon(Icons.menu),
-            iconSize: 30,
-            padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
-            ),
-
       //this bottom button
       Container(
         alignment: Alignment.bottomCenter,
-        child: BottomButton(bottomicon: Icons.add_box,)
+        margin: const EdgeInsets.only(left: 30, right:30),
+        child: const MyBottomButtonBar(
+          profileicon: Icons.person_outline,
+          uploadicon: Icons.add_box,
+          searchicon: Icons.search_outlined,
+          )
       )
         ],
       )

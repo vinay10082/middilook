@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -56,6 +57,11 @@ class UploadController extends GetxController{
   {
     try 
     {
+      DocumentSnapshot userDoumentSnapshot = await FirebaseFirestore.instance
+      .collection("users")
+      .doc(FirebaseAuth.instance.currentUser!.uid).get();
+
+
       String videoID = DateTime.now().millisecondsSinceEpoch.toString();
 
       //1. upload video to storage
@@ -66,6 +72,8 @@ class UploadController extends GetxController{
 
       //3. save overall video info to firestore database
       Video videoObject = Video(
+        userID: FirebaseAuth.instance.currentUser!.uid,
+        userName: (userDoumentSnapshot.data() as Map<String, dynamic>)["name"],
         videoID: videoID,
         description: description,
         purchaseLink: purchaseLink,

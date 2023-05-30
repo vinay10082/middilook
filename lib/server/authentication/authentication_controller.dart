@@ -77,15 +77,18 @@ class AuthenticationController extends GetxController
     .set(user.toJson());
 
     Get.snackbar("Account Created", "Congratulations, your account has been created");
+    
+    Get.offAll(MyHome());
+
     showProgressBar = false;
-    // Get.to (MyLoginAuth());
     } 
     catch (error) 
     {
       Get.snackbar("Account Creation Unsuccessful", "Error Occured while creating account. Try Again.");
 
-      showProgressBar = false;
-      Get.to(MyLoginAuth());
+      Get.to(MySignupAuth());
+
+    showProgressBar = false;
     }
   }
 
@@ -114,15 +117,17 @@ class AuthenticationController extends GetxController
 
       Get.snackbar("Logged-in Successful", "you're logged-in successfull.");
 
-      showProgressBar = false;
-      Get.to(UserUpload());
+      Get.offAll(MyHome());
+
+    showProgressBar = false;                   
     } 
     catch (error) 
     {
       Get.snackbar("Login Unsuccessful", "Error Occured during signin authentication.");
 
-      showProgressBar = false;
       Get.to(MySignupAuth());
+
+    showProgressBar = false;
     }
   }
 

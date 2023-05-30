@@ -8,12 +8,16 @@ class User
   String? email;
   String? password;
 
+  // int? totalPurchaseLinkVisited;
+
   User({
     this.name,
     this.uid,
     this.image,
     this.email,
     this.password,
+
+    // this.totalPurchaseLinkVisited,
   });
 
   Map<String, dynamic> toJson() => {
@@ -21,7 +25,9 @@ class User
     "uid": uid,
     "image": image,
     "email": email,
-    "password": password
+    "password": password,
+    
+    // "totalPurchaseLinkVisited": totalPurchaseLinkVisited,
   };
 
   static User fromSnap(DocumentSnapshot snapshot)
@@ -34,6 +40,8 @@ class User
       image: dataSnapshot["image"],
       email: dataSnapshot["email"],
       password: dataSnapshot["password"],
+
+      // totalPurchaseLinkVisited: dataSnapshot["totalPurchaseLinkVisited"],
     );
   }
 }

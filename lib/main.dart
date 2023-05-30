@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:middilook/pages/home_page.dart';
 import 'package:middilook/server/authentication/authentication_controller.dart';
-// import 'package:middilook/pages/upload_page.dart';
 
 void main() async
 {
