@@ -88,7 +88,7 @@ class UploadController extends GetxController{
       //
       //here the code of progress bar
       //
-      Get.to(const MyHome());
+      Get.offAll(MyHome());
 
       Get.snackbar("New Video", "we have successfully uploaded your video");
     } 
