@@ -19,9 +19,6 @@ class MyRightButtons extends StatelessWidget {
         }, 
         icon: icon,
         ),
-      SizedBox(
-        height: 10,
-      ),
       Text(text, style: TextStyle(color: Colors.white)),
     ]),);
   }

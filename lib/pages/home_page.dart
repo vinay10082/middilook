@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:middilook/utils/posthome_utils/home_video_display.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:video_player/video_player.dart';
 
 
@@ -9,6 +10,7 @@ import '../utils/posthome_utils/bottom_buttons_bar.dart';
 import '../utils/posthome_utils/circular_image_animation.dart';
 import '../utils/posthome_utils/horizontal_Scrolling_Text.dart';
 import '../utils/posthome_utils/right_side_button.dart';
+import 'user_upload_pages/upload_page_1.dart';
 
 class MyHome extends StatefulWidget {
 
@@ -57,18 +59,23 @@ class _MyHomeState extends State<MyHome> {
             children: [
               MyRightButtons(
               icon: ImageIcon(
-                AssetImage('lib/assets/goToLink.png'),
+                AssetImage('lib/assets/goToLinkColor.png'),
                 size: 40,
-                color: Colors.white,
+                color: Color.fromARGB(159, 255, 0, 128),
               ),
+              // ImageIcon(
+              //   AssetImage('lib/assets/goToLink.png'),
+              //   size: 40,
+              //   color: Colors.white,
+              // ),
               text: eachVideoInfo.purchaseLinkCount.toString(),
               ),
               MyRightButtons(
-              icon: Icon(
-                Icons.share,
+              icon: ImageIcon(
+                AssetImage('lib/assets/share.png'),
                 size: 40,
-                color: Colors.white,
-                ),
+                color: Color.fromARGB(196, 255, 255, 255),
+              ),
               text: 'Share',
               ),
               SizedBox(
@@ -180,8 +187,15 @@ class _MyHomeState extends State<MyHome> {
         margin: const EdgeInsets.only(left: 30, right:30),
         child: const MyBottomButtonBar(
           profileicon: Icons.person_outline,
-          uploadicon: Icons.add_box,
-          searchicon: Icons.search_outlined,
+          uploadicon: ImageIcon(
+                AssetImage('lib/assets/add_box.png'),
+                size: 100,
+                color: Colors.white,
+              ),
+          searchicon: ImageIcon(
+                AssetImage('lib/assets/splash_icon.png'),
+                size: 40,
+              ),
           )
       )
         ],

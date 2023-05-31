@@ -6,7 +6,7 @@ class HomeVideoPlayer extends StatefulWidget {
   
   final String videoFileUrl;
 
-  HomeVideoPlayer({required this.videoFileUrl,});
+  HomeVideoPlayer({super.key, required this.videoFileUrl,});
 
   @override
   State<HomeVideoPlayer> createState() => _HomeVideoPlayerState();
@@ -61,7 +61,12 @@ bool _showPlayPauseButton = false;
       decoration: const BoxDecoration(
         color: Colors.black,
       ),
-      child: VideoPlayer(playerController!)
+      child: Center(
+                    child: AspectRatio(
+                    aspectRatio: playerController!.value.aspectRatio,
+                    child: VideoPlayer(playerController!),
+                    ),
+                  ),
     ),
 
     //GestureDetector(child: Container(...), onTap: () { _show = true; })

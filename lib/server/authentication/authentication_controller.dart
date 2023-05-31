@@ -8,7 +8,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:middilook/pages/authentication_page/login_page.dart';
 import 'package:middilook/pages/authentication_page/signup_page.dart';
 import 'package:middilook/pages/home_page.dart';
-import 'package:middilook/pages/user_upload_pages/upload_page_1.dart';
 
 import '../../global.dart';
 import 'user.dart' as userModel;

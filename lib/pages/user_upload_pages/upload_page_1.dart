@@ -1,71 +1,108 @@
 import 'dart:io';
 
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:middilook/pages/home_page.dart';
 import 'package:middilook/pages/user_upload_pages/upload_page_2.dart';
+import 'package:video_player/video_player.dart';
 
-class UserUpload extends StatefulWidget {
-  const UserUpload({super.key});
+class UploadPlayer extends StatefulWidget {
+
+  const UploadPlayer({super.key, required this.videoFile, required this.videoPath});
+  
+  final File videoFile;
+  final String videoPath;
 
   @override
-  State<UserUpload> createState() => _UserUploadState();
+  State<UploadPlayer> createState() => _UploadPlayerState();
 }
 
-class _UserUploadState extends State<UserUpload> {
+class _UploadPlayerState extends State<UploadPlayer> {
 
+  VideoPlayerController? playerController;
 
-  void getVideoFile(ImageSource sourceImg) async {
+  @override
+  void initState() {
+    super.initState();
+    
+    setState(() {
+    playerController = VideoPlayerController.file(widget.videoFile);
+    });
 
-  final videoFile = await ImagePicker().pickVideo(source: sourceImg);
-      
-
-    if(videoFile != null){
-      Get.to(UploadPlayer(videoFile: File(videoFile.path), videoPath: videoFile.path));
-      }
+    playerController!.initialize();
+    playerController!.play();
+    playerController!.setVolume(2);
+    //set looping....
+    playerController!.setLooping(true);
   }
-          //   onPressed: () {
-          //   getVideoFile(ImageSource.camera);
-          //   },
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    playerController!.dispose();
+
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Stack(
-        children: [
-          Container(
-            padding: EdgeInsets.fromLTRB(0, 200.0, 0, 0),
-            alignment: Alignment.center,
-            child: Column(
-              children: [
-                Icon(Icons.cloud_upload_outlined, size: 200.0, color: Colors.blue,),
-                Text('Upload Maximum 30 Seconds Video', style: TextStyle(fontSize: 20.0),)
-              ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            // display video player
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              child: Stack(
+                children: [
+                  Center(
+                    child: AspectRatio(
+                    aspectRatio: playerController!.value.aspectRatio,
+                    child: VideoPlayer(playerController!),
+                    ),
+                  ),
+                  Container(
+                  alignment: Alignment.bottomCenter,
+                  child:FloatingActionButton(
+                    elevation: 0,
+                    backgroundColor: Colors.transparent,
+                    onPressed:() {
+                    setState(() {
+                      
+                      if(playerController!.value.isPlaying){
+                        playerController!.pause();
+                      }
+                      else{
+                        playerController!.play();
+                      }
+                    });
+                  },
+                  child: Icon(
+                    playerController!.value.isPlaying ? Icons.pause : Icons.play_arrow,
+                    color: Colors.white,
+                  ),
+                  )
+                  ),
+                  Container(
+                  alignment: Alignment.bottomRight,
+                  child: FloatingActionButton(
+                  shape: BeveledRectangleBorder(
+                    borderRadius: BorderRadius.zero
+                  ),
+                  onPressed:() {
+                    playerController!.pause();
+                    Get.to(UploadDetail(videoFile: widget.videoFile, videoPath: widget.videoPath));
+                  },
+                  child: Icon(Icons.arrow_forward_ios,
+                  color: Colors.white,
+                  ),
+                )
+                  )
+                    ],
+                  ),
             ),
-          ),
-          Container(
-            alignment: Alignment.bottomCenter,
-            child: IconButton(
-              onPressed: () {
-                getVideoFile(ImageSource.camera);
-              },
-              icon: Icon(Icons.video_camera_back_outlined),
-              iconSize: 60.0,
-              ),
-          ),
-          Container(
-            alignment: Alignment.bottomRight,
-            child: IconButton(
-              onPressed: () {
-                getVideoFile(ImageSource.gallery);
-              },
-              icon: Icon(Icons.file_upload_sharp),
-              iconSize: 60.0,
-              ),
-          )
-        ],
+          ]
+        )
       )
     );
   }

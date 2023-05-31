@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:middilook/pages/home_page.dart';
 import 'package:video_compress/video_compress.dart';
 
+import '../../global.dart';
 import 'video.dart';
 
 //uploading video controller
@@ -91,11 +92,16 @@ class UploadController extends GetxController{
       Get.offAll(MyHome());
 
       Get.snackbar("New Video", "we have successfully uploaded your video");
+
+      //off the progress indicator bar
+      showProgressBar = false;
     } 
     catch (errorMsg) 
     {
       Get.snackbar("video Upload Unseccessfull", "Error occured, your video is not uploaded. Try Again.");
 
+      //off the progress indicator bar
+      showProgressBar = false;
     }
   }
 }
