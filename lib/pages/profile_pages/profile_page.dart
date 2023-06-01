@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:middilook/pages/home_page.dart';
+import 'package:middilook/pages/profile_pages/creator_video_player.dart';
 import 'package:middilook/pages/profile_pages/edit_profile_page.dart';
 import 'package:middilook/server/profile/profile_controller.dart';
 
@@ -12,25 +13,23 @@ class MyProfile extends StatefulWidget {
   State<MyProfile> createState() => _MyProfileState();
 }
 
-class _MyProfileState extends State<MyProfile> 
-{
+class _MyProfileState extends State<MyProfile> {
   ProfileController controllerProfile = Get.put(ProfileController());
 
   @override
   void initState() {
     super.initState();
-    
-    controllerProfile.updateCurrentUserID(FirebaseAuth.instance.currentUser!.uid);
+
+    controllerProfile
+        .updateCurrentUserID(FirebaseAuth.instance.currentUser!.uid);
   }
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ProfileController>(
       init: ProfileController(),
-      builder: (controllerProfile)
-      {
-        if(controllerProfile.userMap.isEmpty)
-        {
+      builder: (controllerProfile) {
+        if (controllerProfile.userMap.isEmpty) {
           return const Center(
             child: CircularProgressIndicator(
               color: Colors.white,
@@ -41,21 +40,18 @@ class _MyProfileState extends State<MyProfile>
         return Scaffold(
           appBar: AppBar(
             leading: IconButton(
-              onPressed: () 
-              {
+              onPressed: () {
                 Get.back();
               },
               icon: const Icon(
                 Icons.arrow_back,
-                ),
               ),
-            
-            title: Text("Info"),
             ),
+            title: Text("Info"),
+          ),
           body: SingleChildScrollView(
             child: Column(
               children: [
-
                 //user profile image
                 CircleAvatar(
                   radius: 80,
@@ -67,50 +63,86 @@ class _MyProfileState extends State<MyProfile>
                   height: 20,
                 ),
                 Text(
-              controllerProfile.userMap["userName"], 
-              style: const TextStyle(
-                fontWeight: FontWeight.bold, 
-                color: Colors.white
+                  controllerProfile.userMap["userName"],
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.white),
                 ),
-              ),
 
                 const SizedBox(
                   height: 16,
                 ),
 
-                //totalPurchaseLinkCount
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Column(
                   children: [
-
-                    //totalPurchaseLinkCount widget
-                    GestureDetector(
-                      onTap: ()
-                      {
-
-                      },
-                      child: Column(
-                        children: [
-                          Text(
-                            controllerProfile.userMap["totalPurchaseLinkCount"],
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.pink
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        //totalPurchaseLinkCount
+                        Row(
+                          children: [
+                            //totalPurchaseLinkCount widget
+                            GestureDetector(
+                              onTap: () {},
+                              child: Column(
+                                children: [
+                                  Text(
+                                    controllerProfile
+                                        .userMap["totalPurchaseLinkCount"],
+                                    style: const TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.pink),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  const Text(
+                                    "Visited",
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontStyle: FontStyle.italic,
+                                        color: Colors.pink),
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
+                          ],
+                        ),
 
-                          const SizedBox(height: 10,),
+                        const SizedBox(
+                          width: 30,
+                        ),
 
-                          const Text("Visited",
-                          style: TextStyle(
-                              fontSize: 14,
-                              fontStyle: FontStyle.italic,
-                              color: Colors.pink
+                        //total no. of videos
+                        Row(
+                          children: [
+                            //totalPurchaseLinkCount widget
+                            Column(
+                              children: [
+                                Text(
+                                  controllerProfile
+                                      .userMap["thumbnailsList"].length
+                                      .toString(),
+                                  style: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                const Text(
+                                  "Videos",
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontStyle: FontStyle.italic,
+                                      color: Colors.white),
+                                )
+                              ],
                             ),
-                          )
-                        ],
-                      ),
+                          ],
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -120,61 +152,64 @@ class _MyProfileState extends State<MyProfile>
                 ),
 
                 //edit profile button and signout button
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Column(
                   children: [
-                    Container(
-                      width: 120,
-                      height: 40,
-                      decoration: const BoxDecoration(
-                        color: Colors.white
-                      ),
-                      child: InkWell(
-                        onTap: () 
-                        {
-                          //function to edit profilet
-                          Get.to(EditProfile());
-                        },
-                        child: const Center(
-                    child: Text(
-                    'Edit Profile',
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w700,
-                    ),
-                    )
-                  ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 30,
-                    ),
-                    Container(
-                      width: 120,
-                      height: 40,
-                      decoration: const BoxDecoration(
-                        color: Colors.white
-                      ),
-                      child: InkWell(
-                        onTap: () 
-                        {
-                          //function to sing out
-                          FirebaseAuth.instance.signOut();
-                          Get.offAll(MyHome());
-                          Get.snackbar("Logged Out", "you are logged out from the app.");
-                        },
-                        child: const Center(
-                    child: Text(
-                    'Log Out',
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w700,
-                    ),
-                    )
-                  ),
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                              width: 120,
+                              height: 40,
+                              decoration:
+                                  const BoxDecoration(color: Colors.white),
+                              child: InkWell(
+                                onTap: () {
+                                  //function to edit profilet
+                                  Get.to(EditProfile());
+                                },
+                                child: const Center(
+                                    child: Text(
+                                  'Edit Profile',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                )),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 30,
+                            ),
+                            Container(
+                              width: 120,
+                              height: 40,
+                              decoration:
+                                  const BoxDecoration(color: Colors.white),
+                              child: InkWell(
+                                onTap: () {
+                                  //function to sing out
+                                  FirebaseAuth.instance.signOut();
+                                  Get.offAll(MyHome());
+                                  Get.snackbar("Logged Out",
+                                      "you are logged out from the app.");
+                                },
+                                child: const Center(
+                                    child: Text(
+                                  'Log Out',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                )),
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
                     )
                   ],
                 ),
@@ -194,30 +229,26 @@ class _MyProfileState extends State<MyProfile>
                     childAspectRatio: 0.6,
                     crossAxisSpacing: 5,
                     mainAxisSpacing: 5,
-                    ),
-                    itemBuilder: (context, index)
-                    {
-                      String eachThumbnailUrl = controllerProfile.userMap["thumbnailsList"][index];
+                  ),
+                  itemBuilder: (context, index) {
+                    String eachThumbnailUrl =
+                        controllerProfile.userMap["thumbnailsList"][index];
 
-                      return GestureDetector(
-                        onTap:() 
-                        {
-                          
+                    return GestureDetector(
+                        onTap: () {
+                          Get.to(CreatorVideoPlayer());
                         },
-                          child: Image.network(
-                          eachThumbnailUrl, 
+                        child: Image.network(
+                          eachThumbnailUrl,
                           fit: BoxFit.cover,
-                        )
-                      );
-                    },
-
+                        ));
+                  },
                 )
               ],
             ),
           ),
         );
       },
-    
     );
   }
 }

@@ -13,8 +13,7 @@ import '../../global.dart';
 import 'video.dart';
 
 //uploading video controller
-class UploadController extends GetxController{
-
+class UploadController extends GetxController {
   // compressVideoFile(String videoFilePath) async
   // {
   //   final compressedVideoFilePath = await VideoCompress.compressVideo(videoFilePath, quality: VideoQuality.LowQuality);
@@ -22,13 +21,14 @@ class UploadController extends GetxController{
   //   return compressedVideoFilePath!.file;
   // }
 
-  uploadCompressedVideoFiletoFirebaseStorage(String videoID, String videoFilePath) async
-  {
-    UploadTask videoUploadTask = FirebaseStorage.instance.ref()
-    .child("All Videos")
-    .child(videoID)
-    // .putFile(await compressVideoFile(videoFilePath));
-    .putFile(File(videoFilePath));
+  uploadCompressedVideoFiletoFirebaseStorage(
+      String videoID, String videoFilePath) async {
+    UploadTask videoUploadTask = FirebaseStorage.instance
+        .ref()
+        .child("All Videos")
+        .child(videoID)
+        // .putFile(await compressVideoFile(videoFilePath));
+        .putFile(File(videoFilePath));
 
     TaskSnapshot snapshot = await videoUploadTask;
 
@@ -44,12 +44,13 @@ class UploadController extends GetxController{
   //   return thumbnailImage;
   // }
 
-  uploadThumbnailImagetoFirebaseStorage(String videoID, File thumbnailImage) async
-  {
-    UploadTask thumbnailUploadTask = FirebaseStorage.instance.ref()
-    .child("All Thumbnails")
-    .child(videoID)
-    .putFile(thumbnailImage);
+  uploadThumbnailImagetoFirebaseStorage(
+      String videoID, File thumbnailImage) async {
+    UploadTask thumbnailUploadTask = FirebaseStorage.instance
+        .ref()
+        .child("All Thumbnails")
+        .child(videoID)
+        .putFile(thumbnailImage);
 
     TaskSnapshot snapshot = await thumbnailUploadTask;
 
@@ -58,22 +59,28 @@ class UploadController extends GetxController{
     return downloadUrlofUploadedThumbnail;
   }
 
-  saveVideoInformationToFirestoreDatabase(String description, String purchaseLink, String videoFilePath, File thumbnailImage, BuildContext context) async
-  {
-    try 
-    {
+  saveVideoInformationToFirestoreDatabase(
+      String description,
+      String purchaseLink,
+      String videoFilePath,
+      File thumbnailImage,
+      BuildContext context) async {
+    try {
       DocumentSnapshot userDoumentSnapshot = await FirebaseFirestore.instance
-      .collection("users")
-      .doc(FirebaseAuth.instance.currentUser!.uid).get();
-
+          .collection("users")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .get();
 
       String videoID = DateTime.now().millisecondsSinceEpoch.toString();
 
       //1. upload video to storage
-      String videodownloadUrl = await uploadCompressedVideoFiletoFirebaseStorage(videoID, videoFilePath);
+      String videodownloadUrl =
+          await uploadCompressedVideoFiletoFirebaseStorage(
+              videoID, videoFilePath);
 
       //2. upload thumbnail to storage
-      String thumbnaildownloadUrl = await uploadThumbnailImagetoFirebaseStorage(videoID, thumbnailImage);
+      String thumbnaildownloadUrl =
+          await uploadThumbnailImagetoFirebaseStorage(videoID, thumbnailImage);
 
       //3. save overall video info to firestore database
       Video videoObject = Video(
@@ -88,7 +95,10 @@ class UploadController extends GetxController{
         publishedDateTime: DateTime.now().millisecondsSinceEpoch,
       );
 
-      await FirebaseFirestore.instance.collection("videos").doc(videoID).set(videoObject.toJson());
+      await FirebaseFirestore.instance
+          .collection("videos")
+          .doc(videoID)
+          .set(videoObject.toJson());
 
       //
       //here the code of progress bar
@@ -99,15 +109,14 @@ class UploadController extends GetxController{
       showProgressBar = false;
 
       Get.snackbar("New Video", "we have successfully uploaded your video");
-    } 
-    catch (errorMsg) 
-    {
+    } catch (errorMsg) {
       //off the progress indicator bar
       showProgressBar = false;
 
       Get.offAll(MyHome());
 
-      Get.snackbar("video Upload Unseccessfull", "Error occured, your video is not uploaded. Try Again.");
+      Get.snackbar("video Upload Unseccessfull",
+          "Error occured, your video is not uploaded. Try Again.");
     }
   }
 }

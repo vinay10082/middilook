@@ -11,7 +11,9 @@ class _MySearchState extends State<MySearch> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Search Page"),),
+      appBar: AppBar(
+        title: Text("Search Page"),
+      ),
       body: Center(child: Text("this is search page")),
     );
   }

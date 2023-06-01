@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class MyScrollingText extends StatefulWidget {
-  const MyScrollingText({super.key, required this.text, required this.textStyle});
+  const MyScrollingText(
+      {super.key, required this.text, required this.textStyle});
 
   final text;
   final textStyle;
@@ -14,14 +15,14 @@ class _MyScrollingTextState extends State<MyScrollingText> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Text(widget.text, style: widget.textStyle)
-      // Row(
-      //   children: [
-      // Text(widget.text, style: widget.textStyle),
-      // ]
-      // ),
-    );
+        scrollDirection: Axis.horizontal,
+        child: Text(widget.text, style: widget.textStyle)
+        // Row(
+        //   children: [
+        // Text(widget.text, style: widget.textStyle),
+        // ]
+        // ),
+        );
     // Text(widget.text, style: widget.textStyle);
   }
 }

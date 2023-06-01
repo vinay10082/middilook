@@ -4,12 +4,10 @@ import 'package:get/get.dart';
 import 'package:middilook/pages/home_page.dart';
 import 'package:middilook/server/authentication/authentication_controller.dart';
 
-void main() async
-{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp().then((value)
-  {
+  await Firebase.initializeApp().then((value) {
     Get.put(AuthenticationController());
   });
 
@@ -40,7 +38,6 @@ class PageController extends StatefulWidget {
 }
 
 class _PageControllerState extends State<PageController> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,4 +45,3 @@ class _PageControllerState extends State<PageController> {
     );
   }
 }
-

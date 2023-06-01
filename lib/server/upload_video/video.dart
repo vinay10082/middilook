@@ -1,8 +1,7 @@
 //video modals
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Video
-{
+class Video {
   String? userID;
   String? userName;
   String? videoID;
@@ -31,39 +30,36 @@ class Video
     this.publishedDateTime,
   });
 
-  Map<String, dynamic> toJson()=>
-  {
-    "userID": userID,
-    "userName": userName,
-    "videoID": videoID,
-    "totalComments": totalComments,
-    "likesList": likesList,
-    "artistSongName": artistSongName,
-    "description": description,
-    "purchaseLink": purchaseLink,
-    "purchaseLinkCount": purchaseLinkCount,
-    "videoUrl": videoUrl,
-    "thumbnailUrl": thumbnailUrl,
-    "publishedDateTime": publishedDateTime,
-  };
+  Map<String, dynamic> toJson() => {
+        "userID": userID,
+        "userName": userName,
+        "videoID": videoID,
+        "totalComments": totalComments,
+        "likesList": likesList,
+        "artistSongName": artistSongName,
+        "description": description,
+        "purchaseLink": purchaseLink,
+        "purchaseLinkCount": purchaseLinkCount,
+        "videoUrl": videoUrl,
+        "thumbnailUrl": thumbnailUrl,
+        "publishedDateTime": publishedDateTime,
+      };
 
-  static Video fromDocumentSnapshot(DocumentSnapshot snapshot)
-  {
+  static Video fromDocumentSnapshot(DocumentSnapshot snapshot) {
     var docSnapshot = snapshot.data() as Map<String, dynamic>;
 
     return Video(
-      userID: docSnapshot["userID"],
-      userName: docSnapshot["userName"],
-      videoID: docSnapshot["videoID"],
-      totalComments: docSnapshot["totalComments"],
-      likesList: docSnapshot["likesList"],
-      artistSongName: docSnapshot["artistSongName"],
-      description: docSnapshot["description"],
-      purchaseLink: docSnapshot["purchaseLink"],
-      purchaseLinkCount: docSnapshot["purchaseLinkCount"],
-      videoUrl: docSnapshot["videoUrl"],
-      thumbnailUrl: docSnapshot["thumbnailUrl"],
-      publishedDateTime: docSnapshot["publishedDateTime"]
-    );
+        userID: docSnapshot["userID"],
+        userName: docSnapshot["userName"],
+        videoID: docSnapshot["videoID"],
+        totalComments: docSnapshot["totalComments"],
+        likesList: docSnapshot["likesList"],
+        artistSongName: docSnapshot["artistSongName"],
+        description: docSnapshot["description"],
+        purchaseLink: docSnapshot["purchaseLink"],
+        purchaseLinkCount: docSnapshot["purchaseLinkCount"],
+        videoUrl: docSnapshot["videoUrl"],
+        thumbnailUrl: docSnapshot["thumbnailUrl"],
+        publishedDateTime: docSnapshot["publishedDateTime"]);
   }
 }
