@@ -64,14 +64,14 @@ return Scaffold(
         onPressed: ()
         async {
           //this is open purchase link
-          if(await canLaunchUrl(Uri.parse(eachVideoInfo.purchaseLink.toString())))
-          {
+          // if(await canLaunchUrl(Uri.parse(eachVideoInfo.purchaseLink.toString())))
+          // {
           await launchUrl(Uri.parse(eachVideoInfo.purchaseLink.toString()), mode: LaunchMode.externalApplication);
-          }
-          else
-          {
-            Get.snackbar("The Link is not Correct", "or The Link is Dead"); 
-          }
+          // }
+          // else
+          // {
+            // Get.snackbar("The Link is not Correct", "or The Link is Dead"); 
+          // }
         }, 
         icon: const ImageIcon(
                 AssetImage('lib/assets/goToLinkColor.png'),
