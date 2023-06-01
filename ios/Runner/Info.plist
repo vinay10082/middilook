@@ -5,13 +5,10 @@
 		//permission for camera in ios
 		<key>NSPhotoLibraryUsageDescription</key>
 		<string>This app needs permission for choosing image from your gallery.</string>
-
 		<key>NSCameraUsageDescription</key>
 		<string>This app needs permission for capture image.</string>
-
 		<key>NSMicrophoneUsageDescription</key>
 		<string>This app needs permission for using your phone microphone.</string>
-
 		<key>CFBundleDevelopmentRegion</key>
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>CFBundleDisplayName</key>

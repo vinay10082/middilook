@@ -3,14 +3,17 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:middilook/pages/user_upload_pages/upload_page_2.dart';
-import 'package:video_player/video_player.dart';
+import 'package:video_trimmer/video_trimmer.dart';
+
+import '../../global.dart';
 
 class UploadPlayer extends StatefulWidget {
 
-  const UploadPlayer({super.key, required this.videoFile, required this.videoPath});
+  const UploadPlayer({super.key, required this.videoFile, required this.videoPath, required this.thumbnailImage});
   
   final File videoFile;
   final String videoPath;
+  final File thumbnailImage;
 
   @override
   State<UploadPlayer> createState() => _UploadPlayerState();
@@ -18,91 +21,137 @@ class UploadPlayer extends StatefulWidget {
 
 class _UploadPlayerState extends State<UploadPlayer> {
 
-  VideoPlayerController? playerController;
+  final Trimmer _trimmer = Trimmer();
+
+  String? trimmedVideoPath;
+
+  double _startValue = 0.0;
+  double _endValue = 0.0;
+
+  bool _isPlaying = false;
+  bool _progressVisibility = false;
+
+
+  void _loadVideo() {
+    _trimmer.loadVideo(videoFile: widget.videoFile);
+    setState(() {
+      isVideoCompressing = false;
+    });
+  }
+  
 
   @override
   void initState() {
     super.initState();
-    
-    setState(() {
-    playerController = VideoPlayerController.file(widget.videoFile);
-    });
-
-    playerController!.initialize();
-    playerController!.play();
-    playerController!.setVolume(2);
-    //set looping....
-    playerController!.setLooping(true);
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    playerController!.dispose();
-
-    super.dispose();
+    _loadVideo();
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // display video player
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              child: Stack(
-                children: [
-                  Center(
-                    child: AspectRatio(
-                    aspectRatio: playerController!.value.aspectRatio,
-                    child: VideoPlayer(playerController!),
-                    ),
-                  ),
-                  Container(
-                  alignment: Alignment.bottomCenter,
-                  child:FloatingActionButton(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          SizedBox(
+            height: 40,
+          ),
+
+          //this is trimmer viewer
+          Container(
+            alignment: Alignment.topCenter,
+            child: TrimViewer(
+              trimmer: _trimmer,
+              viewerHeight: 50,
+              viewerWidth: MediaQuery.of(context).size.width,
+              maxVideoLength: const Duration(seconds: 45),
+              onChangeStart: (value) => _startValue = value,
+              onChangeEnd: (value) => _endValue = value,
+              onChangePlaybackState: (value) =>
+              setState(() => _isPlaying = value),
+              ),
+          ),
+          SizedBox(
+            height: 40,
+          ),
+          //this is video player section
+          Expanded(
+          child: VideoViewer(trimmer: _trimmer),
+          ),
+          Visibility(
+            visible: _progressVisibility,
+            child: LinearProgressIndicator(backgroundColor: Colors.red),
+            ),
+          SizedBox(
+            height: 20,
+          ),
+                    Container(
+                    alignment: Alignment.bottomCenter,
+                    child: 
+                    Stack(
+                    children: [
+                    //this is play pause button
+                    Container(
+                    alignment: Alignment.center,
+                    child:
+                    FloatingActionButton(
                     elevation: 0,
                     backgroundColor: Colors.transparent,
-                    onPressed:() {
-                    setState(() {
-                      
-                      if(playerController!.value.isPlaying){
-                        playerController!.pause();
-                      }
-                      else{
-                        playerController!.play();
-                      }
-                    });
-                  },
+                    onPressed: () async{
+                      bool playbackState = await _trimmer.
+                      videoPlaybackControl(
+                        startValue: _startValue, 
+                        endValue: _endValue
+                        );
+
+                      setState(() {
+                        _isPlaying = playbackState;
+                      });
+                    },
                   child: Icon(
-                    playerController!.value.isPlaying ? Icons.pause : Icons.play_arrow,
+                    _isPlaying ? Icons.pause : Icons.play_arrow,
                     color: Colors.white,
                   ),
-                  )
                   ),
-                  Container(
-                  alignment: Alignment.bottomRight,
-                  child: FloatingActionButton(
+                    ),
+
+                    //this is upload button
+                    Container(
+                    alignment: Alignment.centerRight,
+                    child: 
+                    FloatingActionButton(
                   shape: BeveledRectangleBorder(
                     borderRadius: BorderRadius.zero
                   ),
-                  onPressed:() {
-                    playerController!.pause();
-                    Get.to(UploadDetail(videoFile: widget.videoFile, videoPath: widget.videoPath));
+                  onPressed: _progressVisibility ?
+                  null : () async{
+                    
+  setState(() {
+    _progressVisibility = true;
+    });
+
+
+await _trimmer
+    .saveTrimmedVideo(startValue: _startValue, endValue: _endValue, onSave:(outputPath) {
+
+      setState(() {
+    _progressVisibility = false;
+    trimmedVideoPath = outputPath;
+Get.to(UploadDetail(trimmedVideoPath: outputPath!, thumbnailImage: widget.thumbnailImage));
+    // Get.snackbar("path", outputPath!);
+      });
+    });
+
                   },
                   child: Icon(Icons.arrow_forward_ios,
                   color: Colors.white,
                   ),
                 )
-                  )
-                    ],
-                  ),
-            ),
-          ]
-        )
+                    )
+                      ],)
+                    )
+        ],
       )
     );
   }

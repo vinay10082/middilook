@@ -191,8 +191,9 @@ class _MyProfileState extends State<MyProfile>
                   itemCount: controllerProfile.userMap["thumbnailsList"].length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
-                    childAspectRatio: 0.7,
-                    crossAxisSpacing: 20,
+                    childAspectRatio: 0.6,
+                    crossAxisSpacing: 5,
+                    mainAxisSpacing: 5,
                     ),
                     itemBuilder: (context, index)
                     {

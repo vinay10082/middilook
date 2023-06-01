@@ -10,10 +10,10 @@ import '../../server/upload_video/upload_controller.dart';
 import '../../utils/default_widget/input_text_widget.dart';
 
 class UploadDetail extends StatefulWidget {
-  const UploadDetail({super.key, required this.videoFile, required this.videoPath});
-  
-  final File videoFile;
-  final String videoPath;
+  const UploadDetail({super.key, required this.trimmedVideoPath, required this.thumbnailImage});
+
+  final String trimmedVideoPath;
+  final File thumbnailImage;
 
   @override
   State<UploadDetail> createState() => _UploadDetailState();
@@ -30,27 +30,27 @@ class _UploadDetailState extends State<UploadDetail> {
   [
     [
       'lib/assets/amazon.png',
-      "https://www.amazon.in/gp/css/order-history",
+      'https://www.amazon.in/gp/css/order-history',
     ],
     [
       'lib/assets/shopclues.png',
-      "https://smo.shopclues.com/myorders",
+      'https://smo.shopclues.com/myorders',
     ],
     [
       'lib/assets/flipkart.png',
-      "https://www.flipkart.com/rv/orders",
+      'https://www.flipkart.com/rv/orders',
   ],
     [
       'lib/assets/snapdeal.png',
-      "https://m.snapdeal.com/myorders",
+      'https://m.snapdeal.com/myorders',
   ],
     [
       'lib/assets/myntra.png',
-      "https://www.myntra.com/my/orders",
+      'https://www.myntra.com/my/orders',
   ],
     [
       'lib/assets/ajio.png',
-      "https://www.ajio.com/my-account/orders",
+      'https://www.ajio.com/my-account/orders',
   ],
   ];
 
@@ -79,7 +79,7 @@ class _UploadDetailState extends State<UploadDetail> {
               ),
           const SizedBox(height: 30,),
               Container(
-                padding: const EdgeInsets.only(left: 10, right: 10),
+                padding: const EdgeInsets.only(left: 50, right: 50),
                 child: GridView.builder(
                   itemCount: stores.length,
                   shrinkWrap: true,
@@ -94,8 +94,8 @@ class _UploadDetailState extends State<UploadDetail> {
               
               return GestureDetector(
                 onTap: () 
-                {
-                  launchUrl(Uri.parse(stores[index][1]));
+                async {
+                    await launchUrl(Uri.parse(stores[index][1]), mode: LaunchMode.externalApplication);
                 },
                 child: Image.asset(stores[index][0], fit: BoxFit.fill,),
               );
@@ -103,7 +103,7 @@ class _UploadDetailState extends State<UploadDetail> {
           ),
               ),
 
-          const SizedBox(height: 30,),
+          const SizedBox(height: 100),
           //product link input field
           InputTextWidget(textEditingController: purchaseLinkTextEditingController, lableString: 'Paste Link Here', iconData: Icons.link, isObscure: false,),
 
@@ -117,6 +117,7 @@ class _UploadDetailState extends State<UploadDetail> {
             child: InkWell(
               onTap: () 
               {
+              // Get.snackbar("path", widget.videoPath);
               if(descriptionTextEditingController.text.isNotEmpty && purchaseLinkTextEditingController.text.isNotEmpty)
               {
               setState(() {
@@ -127,7 +128,8 @@ class _UploadDetailState extends State<UploadDetail> {
                 (
                 descriptionTextEditingController.text, 
                 purchaseLinkTextEditingController.text, 
-                widget.videoPath,
+                widget.trimmedVideoPath,
+                widget.thumbnailImage,
                 context
                 );
               }

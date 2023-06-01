@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:middilook/utils/posthome_utils/home_video_display.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 
 
@@ -9,8 +9,6 @@ import '../server/home_video_display/home_video_controller.dart';
 import '../utils/posthome_utils/bottom_buttons_bar.dart';
 import '../utils/posthome_utils/circular_image_animation.dart';
 import '../utils/posthome_utils/horizontal_Scrolling_Text.dart';
-import '../utils/posthome_utils/right_side_button.dart';
-import 'user_upload_pages/upload_page_1.dart';
 
 class MyHome extends StatefulWidget {
 
@@ -28,7 +26,8 @@ class _MyHomeState extends State<MyHome> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+  
+return Scaffold(
       body: Stack(
         
         children: [
@@ -57,8 +56,24 @@ class _MyHomeState extends State<MyHome> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              MyRightButtons(
-              icon: ImageIcon(
+
+      //this is purchase link button
+      Padding(padding: const EdgeInsets.symmetric(vertical: 15.0),
+      child: Column(children: [
+      IconButton(
+        onPressed: ()
+        async {
+          //this is open purchase link
+          if(await canLaunchUrl(Uri.parse(eachVideoInfo.purchaseLink.toString())))
+          {
+          await launchUrl(Uri.parse(eachVideoInfo.purchaseLink.toString()), mode: LaunchMode.externalApplication);
+          }
+          else
+          {
+            Get.snackbar("The Link is not Correct", "or The Link is Dead"); 
+          }
+        }, 
+        icon: const ImageIcon(
                 AssetImage('lib/assets/goToLinkColor.png'),
                 size: 40,
                 color: Color.fromARGB(159, 255, 0, 128),
@@ -68,19 +83,33 @@ class _MyHomeState extends State<MyHome> {
               //   size: 40,
               //   color: Colors.white,
               // ),
-              text: eachVideoInfo.purchaseLinkCount.toString(),
-              ),
-              MyRightButtons(
-              icon: ImageIcon(
+        ),
+      Text(eachVideoInfo.purchaseLinkCount.toString(), style: TextStyle(color: Colors.white)),
+    ]),),
+    
+    //this is sharing button
+              Padding(padding: const EdgeInsets.symmetric(vertical: 15.0),
+              child: Column(children: [
+      IconButton(
+        onPressed: ()
+        {
+          // function of sharing video
+        }, 
+        icon: const ImageIcon(
                 AssetImage('lib/assets/share.png'),
                 size: 40,
                 color: Color.fromARGB(196, 255, 255, 255),
               ),
-              text: 'Share',
-              ),
-              SizedBox(
-                height: 20,
-              ),
+              // ImageIcon(
+              //   AssetImage('lib/assets/goToLink.png'),
+              //   size: 40,
+              //   color: Colors.white,
+              // ),
+        ),
+      const Text('Share', style: TextStyle(color: Colors.white)),
+    ]),),
+              
+  
               //Profile circular Animation
               CircularImageAnimation(
                 widgetAnimation: SizedBox(

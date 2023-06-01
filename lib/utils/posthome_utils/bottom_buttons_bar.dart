@@ -4,11 +4,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:middilook/global.dart';
 
 import 'package:middilook/pages/authentication_page/login_page.dart';
+import 'package:video_compress/video_compress.dart';
 
 import '../../pages/profile_pages/profile_page.dart';
-import '../../pages/search_pages/search_page.dart';
 import '../../pages/user_upload_pages/upload_page_1.dart';
 
 
@@ -31,11 +32,21 @@ class _MyBottomButtonBarState extends State<MyBottomButtonBar> {
   void getVideoFile(ImageSource sourceImg) async {
 
   final videoFile = await ImagePicker().pickVideo(source: sourceImg);
-      
 
-    if(videoFile != null){
-      Get.to(UploadPlayer(videoFile: File(videoFile.path), videoPath: videoFile.path));
-      }
+  if(videoFile != null){
+
+  Get.snackbar("Video is Processing", "Wait! This App is in beta testing mode, Don't use Copywrite song.", duration: Duration(seconds: 10),);
+
+  final thumbnailImage = await VideoCompress.getFileThumbnail(videoFile.path);
+
+  await VideoCompress.compressVideo(
+    videoFile.path, 
+    quality: VideoQuality.LowQuality
+    );
+  
+    
+  Get.to(UploadPlayer(videoFile: File(videoFile.path), videoPath: videoFile.path, thumbnailImage: thumbnailImage));
+    }
   }
 
   @override
@@ -71,6 +82,7 @@ IconButton(
                     Get.to(MyLoginAuth());
                   }
                   else{
+                    
                     getVideoFile(ImageSource.gallery);
                   }
                 });
