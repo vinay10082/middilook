@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:middilook/global.dart';
 
 import 'package:middilook/pages/authentication_page/login_page.dart';
+import 'package:middilook/pages/search_pages/search_page.dart';
 import 'package:video_compress/video_compress.dart';
 
 import '../../pages/profile_pages/profile_page.dart';
@@ -53,27 +54,40 @@ class _MyBottomButtonBarState extends State<MyBottomButtonBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
+    return Container(
+        width: MediaQuery.of(context).size.width,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            //this is search button
+            IconButton(
+              onPressed: () {
+                Get.to(MySearch());
+              },
+              icon: widget.searchicon,
+              iconSize: 30,
+              color: Colors.white,
+            ),
 //this is add video button
-        IconButton(
-          icon: widget.uploadicon,
-          iconSize: 50,
-          color: Colors.white,
-          onPressed: () {
-            setState(() {
-              _currentUser = Rx<User?>(FirebaseAuth.instance.currentUser);
-              _currentUser.bindStream(FirebaseAuth.instance.authStateChanges());
-            });
-            ever(_currentUser, (User? currentUser) {
-              if (currentUser == null) {
-                Get.to(MyLoginAuth());
-              } else {
-                getVideoFile(ImageSource.gallery);
-              }
-            });
-          },
-        ),
+            IconButton(
+              icon: widget.uploadicon,
+              iconSize: 55,
+              color: Colors.white,
+              onPressed: () {
+                setState(() {
+                  _currentUser = Rx<User?>(FirebaseAuth.instance.currentUser);
+                  _currentUser
+                      .bindStream(FirebaseAuth.instance.authStateChanges());
+                });
+                ever(_currentUser, (User? currentUser) {
+                  if (currentUser == null) {
+                    Get.to(MyLoginAuth());
+                  } else {
+                    getVideoFile(ImageSource.gallery);
+                  }
+                });
+              },
+            ),
 
 // //this is search button
 // IconButton(
@@ -88,25 +102,26 @@ class _MyBottomButtonBarState extends State<MyBottomButtonBar> {
 //   ),
 
 //this is profile button
-        IconButton(
-          onPressed: () {
-            setState(() {
-              _currentUser = Rx<User?>(FirebaseAuth.instance.currentUser);
-              _currentUser.bindStream(FirebaseAuth.instance.authStateChanges());
-            });
-            ever(_currentUser, (User? currentUser) {
-              if (currentUser == null) {
-                Get.to(MyLoginAuth());
-              } else {
-                Get.to(MyProfile());
-              }
-            });
-          },
-          icon: Icon(widget.profileicon),
-          iconSize: 30,
-          color: Colors.white,
-        ),
-      ],
-    );
+            IconButton(
+              onPressed: () {
+                setState(() {
+                  _currentUser = Rx<User?>(FirebaseAuth.instance.currentUser);
+                  _currentUser
+                      .bindStream(FirebaseAuth.instance.authStateChanges());
+                });
+                ever(_currentUser, (User? currentUser) {
+                  if (currentUser == null) {
+                    Get.to(MyLoginAuth());
+                  } else {
+                    Get.to(MyProfile());
+                  }
+                });
+              },
+              icon: Icon(widget.profileicon),
+              iconSize: 25,
+              color: Colors.white,
+            ),
+          ],
+        ));
   }
 }

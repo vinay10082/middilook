@@ -85,10 +85,17 @@ class _HomeVideoPlayerState extends State<HomeVideoPlayer> {
                         )
                       : null,
                 ),
-                onDoubleTap: () async {
+                onPanUpdate: (details) async {
+                  if (details.delta.dx < 0)
+                  {
                   await launchUrl(Uri.parse(widget.purchaseLink),
-                      mode: LaunchMode.externalApplication);
+                  mode: LaunchMode.externalApplication);
+                  }
                 },
+                // onDoubleTap: () async {
+                //   await launchUrl(Uri.parse(widget.purchaseLink),
+                //       mode: LaunchMode.externalApplication);
+                // },
                 onTap: () {
                   setState(() {
                     if (playerController!.value.isPlaying) {

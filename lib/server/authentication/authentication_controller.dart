@@ -14,35 +14,38 @@ import 'user.dart' as userModel;
 class AuthenticationController extends GetxController {
   static AuthenticationController instanceAuth = Get.find();
 
-  late Rx<File?> _pickedFile;
-  File? get profileImage => _pickedFile.value;
+  // late Rx<File?> _pickedFile;
+  // File? get profileImage => _pickedFile.value;
 
-  void chooseImageFromGallery() async {
-    final pickedImageFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+  // void chooseImageFromGallery() async {
+  //   final pickedImageFile =
+  //       await ImagePicker().pickImage(source: ImageSource.gallery);
 
-    if (pickedImageFile != null) {
-      Get.snackbar("profile Image",
-          "You have successfully selected your profile image.");
-    }
+  //   if (pickedImageFile != null) {
+  //     Get.snackbar("profile Image",
+  //         "You have successfully selected your profile image.");
+  //   }
 
-    _pickedFile = Rx<File?>(File(pickedImageFile!.path));
-  }
+  //   _pickedFile = Rx<File?>(File(pickedImageFile!.path));
+  // }
 
-  void captureImageWithCamera() async {
-    final pickedImageFile =
-        await ImagePicker().pickImage(source: ImageSource.camera);
+  // void captureImageWithCamera() async {
+  //   final pickedImageFile =
+  //       await ImagePicker().pickImage(source: ImageSource.camera);
 
-    if (pickedImageFile != null) {
-      Get.snackbar("profile Image",
-          "You have successfully capture image from your camera.");
-    }
+  //   if (pickedImageFile != null) {
+  //     Get.snackbar("profile Image",
+  //         "You have successfully capture image from your camera.");
+  //   }
 
-    _pickedFile = Rx<File?>(File(pickedImageFile!.path));
-  }
+  //   _pickedFile = Rx<File?>(File(pickedImageFile!.path));
+  // }
 
-  void createAccountForNewUser(File imageFile, String userName,
-      String userEmail, String userPassword) async {
+  void createAccountForNewUser(
+      // File imageFile,
+      String userName,
+      String userEmail,
+      String userPassword) async {
     try {
       //1. Create user in the firebase authentication
       UserCredential credential =
@@ -50,8 +53,9 @@ class AuthenticationController extends GetxController {
         email: userEmail,
         password: userPassword,
       );
-      //2. Save the user profile image to firebase storage
-      String imageDownloadUrl = await uploadImageToStorage(imageFile);
+      // 2. Save the user profile image to firebase storage
+      String imageDownloadUrl = "";
+      // String imageDownloadUrl = await uploadImageToStorage(imageFile);
 
       //3. save user data to the firestore database
       userModel.User user = userModel.User(
@@ -82,21 +86,21 @@ class AuthenticationController extends GetxController {
     }
   }
 
-  Future<String> uploadImageToStorage(File imageFile) async {
-    Reference reference = FirebaseStorage.instance
-        .ref()
-        .child("Profile Images")
-        .child(FirebaseAuth.instance.currentUser!.uid);
+  // Future<String> uploadImageToStorage(File imageFile) async {
+  //   Reference reference = FirebaseStorage.instance
+  //       .ref()
+  //       .child("Profile Images")
+  //       .child(FirebaseAuth.instance.currentUser!.uid);
 
-    UploadTask uploadTask = reference.putFile(imageFile);
-    TaskSnapshot taskSnapshot = await uploadTask;
+  //   UploadTask uploadTask = reference.putFile(imageFile);
+  //   TaskSnapshot taskSnapshot = await uploadTask;
 
-    String downloadUrlOfUploadedImage = await taskSnapshot.ref.getDownloadURL();
+  //   String downloadUrlOfUploadedImage = await taskSnapshot.ref.getDownloadURL();
 
-    return downloadUrlOfUploadedImage;
-  }
+  //   return downloadUrlOfUploadedImage;
+  // }
 
-  void loginUseNow(String userEmail, String userPassword) async {
+  void loginUserNow(String userEmail, String userPassword) async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: userEmail,

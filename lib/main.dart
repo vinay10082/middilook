@@ -40,7 +40,7 @@ class PageController extends StatefulWidget {
 class _PageControllerState extends State<PageController> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: MyHome(),
     );
   }

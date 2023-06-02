@@ -30,9 +30,7 @@ class _MyLoginAuthState extends State<MyLoginAuth> {
             const SizedBox(
               height: 100,
             ),
-            // Image.asset('lib/assets/logo_icon.png', width: 100,),
-            // const SizedBox(height: 50,),
-            Text(
+            const Text(
               'MIDDILOOK',
               style: TextStyle(
                   fontSize: 34,
@@ -43,7 +41,7 @@ class _MyLoginAuthState extends State<MyLoginAuth> {
               height: 30,
             ),
 
-            Text(
+            const Text(
               'Log In',
               style: TextStyle(
                   fontSize: 20,
@@ -97,7 +95,7 @@ class _MyLoginAuthState extends State<MyLoginAuth> {
                                 showProgressBar = true;
                               });
 
-                              authenticationController.loginUseNow(
+                              authenticationController.loginUserNow(
                                 emailTextEditingController.text,
                                 passwordTextEditingController.text,
                               );

@@ -52,13 +52,18 @@ class _MyProfileState extends State<MyProfile> {
           body: SingleChildScrollView(
             child: Column(
               children: [
+                const SizedBox(
+                  height: 30,
+                ),
                 //user profile image
                 CircleAvatar(
                   radius: 80,
+                  backgroundColor: const Color.fromARGB(143, 158, 158, 158),
                   backgroundImage: NetworkImage(
                     controllerProfile.userMap["userImage"],
                   ),
                 ),
+
                 const SizedBox(
                   height: 20,
                 ),

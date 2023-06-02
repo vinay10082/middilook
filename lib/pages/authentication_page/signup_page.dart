@@ -55,21 +55,21 @@ class _MySignupAuthState extends State<MySignupAuth> {
               height: 30,
             ),
 
-            //profile avatar
-            GestureDetector(
-              onTap: () {
-                //allow user to choose image from gallery
-                authenticationController.chooseImageFromGallery();
-              },
-              child: const CircleAvatar(
-                radius: 50,
-                backgroundImage: AssetImage("lib/assets/profile.png"),
-              ),
-            ),
+            // //profile avatar
+            // GestureDetector(
+            //   onTap: () {
+            //     //allow user to choose image from gallery
+            //     authenticationController.chooseImageFromGallery();
+            //   },
+            //   child: const CircleAvatar(
+            //     radius: 50,
+            //     backgroundImage: AssetImage("lib/assets/profile.png"),
+            //   ),
+            // ),
 
-            const SizedBox(
-              height: 30,
-            ),
+            // const SizedBox(
+            //   height: 30,
+            // ),
 
             //username input
             InputTextWidget(
@@ -119,10 +119,13 @@ class _MySignupAuthState extends State<MySignupAuth> {
                         decoration: const BoxDecoration(color: Colors.white),
                         child: InkWell(
                           onTap: () {
-                            if (authenticationController.profileImage != null &&
+                            if (
+                                // authenticationController.profileImage != null &&
                                 userNameTextEditingController.text.isNotEmpty &&
-                                emailTextEditingController.text.isNotEmpty &&
-                                passwordTextEditingController.text.isNotEmpty) {
+                                    emailTextEditingController
+                                        .text.isNotEmpty &&
+                                    passwordTextEditingController
+                                        .text.isNotEmpty) {
                               //to show progress bar
                               setState(() {
                                 showProgressBar = true;
@@ -130,7 +133,7 @@ class _MySignupAuthState extends State<MySignupAuth> {
 
                               //Create a new account for user
                               authenticationController.createAccountForNewUser(
-                                  authenticationController.profileImage!,
+                                  // authenticationController.profileImage!,
                                   userNameTextEditingController.text,
                                   emailTextEditingController.text,
                                   passwordTextEditingController.text);

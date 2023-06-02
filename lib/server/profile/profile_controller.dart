@@ -1,5 +1,10 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
+import 'package:middilook/pages/home_page.dart';
 
 class ProfileController extends GetxController {
   final Rx<Map<String, dynamic>> _userMap = Rx<Map<String, dynamic>>({});
@@ -56,5 +61,55 @@ class ProfileController extends GetxController {
     }
 
     update();
+  }
+
+  //update user profile
+  updateCurrentUserName(String userName) async {
+    try {
+      final Map<String, dynamic> userNameMap = {
+        "name": userName,
+      };
+
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(_userID.value)
+          .update(userNameMap);
+
+      Get.offAll(MyHome());
+
+      Get.snackbar("User Name", "you username is update successfully.");
+    } catch (errorMsg) {
+      Get.snackbar("Error Updating Your Name", "Please try again.");
+    }
+  }
+
+  updateCurrentUserProfilePhoto(File userImage) async {
+    try {
+      Reference reference = FirebaseStorage.instance
+          .ref()
+          .child("Profile Images")
+          .child(FirebaseAuth.instance.currentUser!.uid);
+
+      UploadTask uploadTask = reference.putFile(userImage);
+      TaskSnapshot taskSnapshot = await uploadTask;
+
+      String downloadImageUrl = await taskSnapshot.ref.getDownloadURL();
+
+      final Map<String, dynamic> userImageMap = {
+        "image": downloadImageUrl,
+      };
+
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(_userID.value)
+          .update(userImageMap);
+
+      Get.offAll(MyHome());
+
+      Get.snackbar(
+          "User Profile Photo", "you Profile photo is update successfully.");
+    } catch (errorMsg) {
+      Get.snackbar("Error Updating Profile Photo", "Please try again");
+    }
   }
 }
