@@ -77,6 +77,7 @@ class _MySignupAuthState extends State<MySignupAuth> {
               lableString: 'User Name',
               iconData: Icons.person_4_outlined,
               isObscure: false,
+              limit: 10,
             ),
 
             const SizedBox(
@@ -89,6 +90,7 @@ class _MySignupAuthState extends State<MySignupAuth> {
               lableString: 'Email',
               iconData: Icons.email_outlined,
               isObscure: false,
+              limit: 30,
             ),
 
             const SizedBox(
@@ -101,6 +103,7 @@ class _MySignupAuthState extends State<MySignupAuth> {
               lableString: 'Password',
               iconData: Icons.lock_outline,
               isObscure: true,
+              limit: 200,
             ),
 
             const SizedBox(

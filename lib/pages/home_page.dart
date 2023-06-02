@@ -39,7 +39,9 @@ class _MyHomeState extends State<MyHome> {
                   //home video display
                   HomeVideoPlayer(
                       videoFileUrl: eachVideoInfo.videoUrl.toString(),
-                      purchaseLink: eachVideoInfo.purchaseLink.toString()),
+                      purchaseLink: eachVideoInfo.purchaseLink.toString(),
+                      videoID: eachVideoInfo.videoID.toString()
+                      ),
 
                   // //right side part
                   // Padding(

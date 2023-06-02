@@ -131,6 +131,7 @@ class _EditProfileState extends State<EditProfile> {
                     lableString: "User Name",
                     isObscure: false,
                     iconData: Icons.person_outline,
+                    limit: 10,
                   ),
                 ),
                 const SizedBox(

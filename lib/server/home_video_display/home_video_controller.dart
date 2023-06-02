@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:middilook/server/upload_video/video.dart';
 
@@ -12,11 +13,13 @@ class ControllerHomeVideos extends GetxController {
     // TODO: implement onInit
     super.onInit();
 
-    homeVideosList.bindStream(FirebaseFirestore.instance
+    homeVideosList.bindStream(
+      FirebaseFirestore.instance
         .collection("videos")
         .orderBy("purchaseLinkCount", descending: true)
         .snapshots()
         .map((QuerySnapshot snapshotQuery) {
+          
       List<Video> videosList = [];
 
       for (var eachVideo in snapshotQuery.docs) {
@@ -24,5 +27,21 @@ class ControllerHomeVideos extends GetxController {
       }
       return videosList;
     }));
+  }
+  
+
+  //this is controller for gotoproductlink
+  increaseProductLinkVisitCount(String videoID) async
+  {
+    //increase the visited count
+    await FirebaseFirestore.instance
+    .collection("videos")
+    .doc(videoID)
+    .update(
+      {
+        "purchaseLinkCount": FieldValue.increment(1)
+      }
+    );
+
   }
 }

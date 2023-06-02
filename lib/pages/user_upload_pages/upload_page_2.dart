@@ -72,6 +72,7 @@ class _UploadDetailState extends State<UploadDetail> {
               lableString: 'Description',
               iconData: Icons.description,
               isObscure: false,
+              limit: 16,
             ),
 
             const SizedBox(
@@ -120,6 +121,7 @@ class _UploadDetailState extends State<UploadDetail> {
               lableString: 'Paste Link Here',
               iconData: Icons.link,
               isObscure: false,
+              limit: 200,
             ),
 
             const SizedBox(

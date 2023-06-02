@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:middilook/server/home_video_display/home_video_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 
 class HomeVideoPlayer extends StatefulWidget {
   final String videoFileUrl;
   final String purchaseLink;
+  final String videoID;
 
   HomeVideoPlayer({
     super.key,
     required this.videoFileUrl,
-    required this.purchaseLink,
+    required this.purchaseLink, 
+    required this.videoID,
   });
 
   @override
@@ -18,6 +21,10 @@ class HomeVideoPlayer extends StatefulWidget {
 }
 
 class _HomeVideoPlayerState extends State<HomeVideoPlayer> {
+
+  //controller for video display screen
+  final ControllerHomeVideos controllerHomeVideos = Get.put(ControllerHomeVideos());
+
   VideoPlayerController? playerController;
 
   bool isPlayerInitialized = true;
@@ -85,9 +92,12 @@ class _HomeVideoPlayerState extends State<HomeVideoPlayer> {
                         )
                       : null,
                 ),
-                onPanUpdate: (details) async {
-                  if (details.delta.dx < 0)
+
+                //open link
+                onHorizontalDragEnd: (DragEndDetails details) async {
+                  if (details.primaryVelocity! < 0)
                   {
+                  await controllerHomeVideos.increaseProductLinkVisitCount(widget.videoID);
                   await launchUrl(Uri.parse(widget.purchaseLink),
                   mode: LaunchMode.externalApplication);
                   }

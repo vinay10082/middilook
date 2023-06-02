@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:middilook/pages/home_page.dart';
 
 class ProfileController extends GetxController {
+
   final Rx<Map<String, dynamic>> _userMap = Rx<Map<String, dynamic>>({});
   Map<String, dynamic> get userMap => _userMap.value;
 
@@ -17,6 +18,7 @@ class ProfileController extends GetxController {
 
     retrieveUserInformation();
   }
+
 
   retrieveUserInformation() async {
     //get user info
@@ -36,17 +38,8 @@ class ProfileController extends GetxController {
 
     List<String> thumbnailsList = [];
 
-    _userMap.value = {
-      "userName": userName,
-      "userEmail": userEmail,
-      "userImage": userImage,
-      "userUID": userUID,
-      "totalPurchaseLinkCount": totalPurchaseLinkVisited.toString(),
-      "thumbnailsList": thumbnailsList,
-    };
-
-    //get the total number of link visited
-    //write code here
+    List<String> videosList = [];
+    List<int> videosVisitCountList=[];
 
     //get user's videos info
     var currentUserVideos = await FirebaseFirestore.instance
@@ -58,8 +51,32 @@ class ProfileController extends GetxController {
     for (int i = 0; i < currentUserVideos.docs.length; i++) {
       thumbnailsList
           .add((currentUserVideos.docs[i].data() as dynamic)["thumbnailUrl"]);
-    }
+    
+      totalPurchaseLinkVisited += (currentUserVideos.docs[i].data() as dynamic)["purchaseLinkCount"] as int;
 
+      videosList
+      .add((currentUserVideos.docs[i].data() as dynamic)["videoUrl"]);
+      
+      videosVisitCountList
+      .add((currentUserVideos.docs[i].data() as dynamic)["purchaseLinkCount"] as int);
+
+      print(videosVisitCountList[i]);
+    }
+    // print(totalPurchaseLinkVisited);
+
+
+_userMap.value = {
+      "userName": userName,
+      "userEmail": userEmail,
+      "userImage": userImage,
+      "userUID": userUID,
+      "totalPurchaseLinkCount": totalPurchaseLinkVisited.toString(),
+      "thumbnailsList": thumbnailsList,
+      "videosList": videosList,
+      "videosVisitCountList": videosVisitCountList,
+    };
+
+    
     update();
   }
 

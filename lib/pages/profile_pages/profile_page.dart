@@ -238,10 +238,14 @@ class _MyProfileState extends State<MyProfile> {
                   itemBuilder: (context, index) {
                     String eachThumbnailUrl =
                         controllerProfile.userMap["thumbnailsList"][index];
+                    String eachVideoUrl = controllerProfile.userMap["videosList"][index];
+                    int eachVideoVisitCount = controllerProfile.userMap["videosVisitCountList"][index];
+
+                    String visitCount = eachVideoVisitCount.toString();
 
                     return GestureDetector(
                         onTap: () {
-                          Get.to(CreatorVideoPlayer());
+                          Get.to(CreatorVideoPlayer(videoUrl: eachVideoUrl, videoVisitedCount: visitCount));
                         },
                         child: Image.network(
                           eachThumbnailUrl,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class InputTextWidget extends StatelessWidget {
   final TextEditingController textEditingController;
@@ -6,13 +7,15 @@ class InputTextWidget extends StatelessWidget {
   final String? assetRefrence; //means can be or cannot be required
   final String lableString; //compulsarily required
   final bool isObscure;
+  final int limit;
 
   InputTextWidget(
       {required this.textEditingController,
       this.iconData,
       this.assetRefrence,
       required this.lableString,
-      required this.isObscure});
+      required this.isObscure,
+      required this.limit});
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +24,10 @@ class InputTextWidget extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 20),
         child: TextField(
             controller: textEditingController,
+            inputFormatters: 
+            [
+            LengthLimitingTextInputFormatter(limit),
+            ],
             decoration: InputDecoration(
               //label section
               labelText: lableString,

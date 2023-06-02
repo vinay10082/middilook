@@ -36,7 +36,7 @@ class _MyBottomButtonBarState extends State<MyBottomButtonBar> {
       Get.snackbar(
         "Video is Processing",
         "Wait! This App is in beta testing mode, Don't use Copywrite song.",
-        duration: Duration(seconds: 10),
+        duration: Duration(seconds: 20),
       );
 
       final thumbnailImage =
