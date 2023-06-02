@@ -7,7 +7,7 @@ class InputTextWidget extends StatelessWidget {
   final String? assetRefrence; //means can be or cannot be required
   final String lableString; //compulsarily required
   final bool isObscure;
-  final int limit;
+  final int? limit;
 
   InputTextWidget(
       {required this.textEditingController,
@@ -15,7 +15,7 @@ class InputTextWidget extends StatelessWidget {
       this.assetRefrence,
       required this.lableString,
       required this.isObscure,
-      required this.limit});
+      this.limit});
 
   @override
   Widget build(BuildContext context) {

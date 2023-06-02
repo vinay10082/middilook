@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:middilook/global.dart';
 
 import 'package:middilook/pages/authentication_page/login_page.dart';
+import 'package:middilook/pages/authentication_page/phone_auth_page.dart';
 import 'package:middilook/pages/search_pages/search_page.dart';
 import 'package:video_compress/video_compress.dart';
 
@@ -81,7 +82,8 @@ class _MyBottomButtonBarState extends State<MyBottomButtonBar> {
                 });
                 ever(_currentUser, (User? currentUser) {
                   if (currentUser == null) {
-                    Get.to(MyLoginAuth());
+                    // Get.to(MyLoginAuth());
+                    Get.to(MyPhoneAuth());
                   } else {
                     getVideoFile(ImageSource.gallery);
                   }

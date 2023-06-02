@@ -10,6 +10,7 @@ dependencies:
   # camera: ^0.9.4+5
   simple_circular_progress_bar: ^1.0.2
   get: ^4.6.5
+  otp_text_field: ^1.1.1
   image_picker: ^0.8.7
   video_player: ^2.6.0
   video_trimmer: ^2.0.0

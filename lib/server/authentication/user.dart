@@ -4,6 +4,7 @@ class User {
   String? name;
   String? uid;
   String? image;
+  String? phone;
   String? email;
   String? password;
 
@@ -13,6 +14,7 @@ class User {
     this.name,
     this.uid,
     this.image,
+    this.phone,
     this.email,
     this.password,
 
@@ -23,6 +25,7 @@ class User {
         "name": name,
         "uid": uid,
         "image": image,
+        "phone": phone,
         "email": email,
         "password": password,
 
@@ -36,6 +39,7 @@ class User {
       name: dataSnapshot["name"],
       uid: dataSnapshot["uid"],
       image: dataSnapshot["image"],
+      phone: dataSnapshot["phone"],
       email: dataSnapshot["email"],
       password: dataSnapshot["password"],
 

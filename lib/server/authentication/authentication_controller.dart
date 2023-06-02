@@ -2,9 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:middilook/pages/authentication_page/signup_page.dart';
 import 'package:middilook/pages/home_page.dart';
 
@@ -12,6 +10,7 @@ import '../../global.dart';
 import 'user.dart' as userModel;
 
 class AuthenticationController extends GetxController {
+
   static AuthenticationController instanceAuth = Get.find();
 
   // late Rx<File?> _pickedFile;
@@ -119,6 +118,55 @@ class AuthenticationController extends GetxController {
       Get.to(MySignupAuth());
 
       showProgressBar = false;
+    }
+  }
+
+  void verifyPhoneNumber(String phoneNumber) async
+  {
+    PhoneVerificationCompleted verificationCompleted = 
+    (PhoneAuthCredential phoneAuthCredential) async {
+      Get.snackbar('Verification Completed', "phone number is verfied");
+
+    };
+    PhoneVerificationFailed verificationFailed = 
+    (FirebaseAuthException exception) async {
+      Get.snackbar('Verification Failed', exception.toString());
+
+    };
+    PhoneCodeSent codeSent = 
+    (String verificationID, int? forceResendingtoken) async {
+      Get.snackbar('Verification Code', "verification code set to the phone number.");
+
+    };
+    PhoneCodeAutoRetrievalTimeout codeAutoRetrievalTimeout = 
+    (String verificationId) async {
+      Get.snackbar('Time Out', "");
+
+    };
+    try 
+    {
+      await FirebaseAuth.instance.verifyPhoneNumber(
+        phoneNumber: phoneNumber,
+        verificationCompleted: verificationCompleted, 
+        verificationFailed: verificationFailed, 
+        codeSent: codeSent, 
+        codeAutoRetrievalTimeout: codeAutoRetrievalTimeout);
+
+    //save user data to the firebase database
+      // userModel.User user = userModel.User(
+      //   phone: phoneNumber
+      //   uid: credential.user!.uid,
+      // );
+
+      // await FirebaseFirestore.instance
+      //     .collection("users")
+      //     .doc(credential.user!.uid)
+      //     .set(user.toJson());
+    } 
+    catch (errorMsg) 
+    {
+      Get.snackbar("Enter Valid Phone Number",
+          "Error Occured while creating account. Try Again.");
     }
   }
 }
