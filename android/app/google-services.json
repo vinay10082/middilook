@@ -1,26 +1,44 @@
 {
   "project_info": {
-    "project_number": "960381829170",
-    "project_id": "middilook",
-    "storage_bucket": "middilook.appspot.com"
+    "project_number": "379105161608",
+    "project_id": "middi-look-ae3ab",
+    "storage_bucket": "middi-look-ae3ab.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:960381829170:android:c9d6c08786b64e20dd3c2b",
+        "mobilesdk_app_id": "1:379105161608:android:13cba26dce662fffe4ca3d",
         "android_client_info": {
           "package_name": "com.team.mr.middilook"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "379105161608-6mgffbluaao9sf7smb78bthjuud1hb4s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.team.mr.middilook",
+            "certificate_hash": "4b3ca8fbcc790c7d7b826a218362d2a37aec5cc1"
+          }
+        },
+        {
+          "client_id": "379105161608-qc3k8mgork0cflrumo7hce1kqs6lpgvt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyBfsZtdHYgol7R_RHTj0bWFJ2YNnMll1LU"
+          "current_key": "AIzaSyDbLDUA5gEmpJcW9TYqnwGx5arm0MQeBP8"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "379105161608-qc3k8mgork0cflrumo7hce1kqs6lpgvt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
