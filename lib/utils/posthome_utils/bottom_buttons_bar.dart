@@ -4,9 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:middilook/global.dart';
 
-import 'package:middilook/pages/authentication_page/login_page.dart';
 import 'package:middilook/pages/authentication_page/phone_auth_page.dart';
 import 'package:middilook/pages/search_pages/search_page.dart';
 import 'package:video_compress/video_compress.dart';
@@ -27,6 +25,7 @@ class MyBottomButtonBar extends StatefulWidget {
 }
 
 class _MyBottomButtonBarState extends State<MyBottomButtonBar> {
+  
   late Rx<User?> _currentUser;
 
   //uploading video file from gallery
@@ -37,7 +36,7 @@ class _MyBottomButtonBarState extends State<MyBottomButtonBar> {
       Get.snackbar(
         "Video is Processing",
         "Wait! This App is in beta testing mode, Don't use Copywrite song.",
-        duration: Duration(seconds: 20),
+        duration: const Duration(seconds: 20),
       );
 
       final thumbnailImage =
@@ -55,7 +54,7 @@ class _MyBottomButtonBarState extends State<MyBottomButtonBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -63,12 +62,13 @@ class _MyBottomButtonBarState extends State<MyBottomButtonBar> {
             //this is search button
             IconButton(
               onPressed: () {
-                Get.to(MySearch());
+                Get.to(const MySearch());
               },
               icon: widget.searchicon,
               iconSize: 30,
               color: Colors.white,
             ),
+            
 //this is add video button
             IconButton(
               icon: widget.uploadicon,
@@ -83,7 +83,7 @@ class _MyBottomButtonBarState extends State<MyBottomButtonBar> {
                 ever(_currentUser, (User? currentUser) {
                   if (currentUser == null) {
                     // Get.to(MyLoginAuth());
-                    Get.to(MyPhoneAuth());
+                    Get.to(const MyPhoneAuth());
                   } else {
                     getVideoFile(ImageSource.gallery);
                   }
@@ -113,9 +113,9 @@ class _MyBottomButtonBarState extends State<MyBottomButtonBar> {
                 });
                 ever(_currentUser, (User? currentUser) {
                   if (currentUser == null) {
-                    Get.to(MyLoginAuth());
+                    Get.to(const MyPhoneAuth());
                   } else {
-                    Get.to(MyProfile());
+                    Get.to(const MyProfile());
                   }
                 });
               },

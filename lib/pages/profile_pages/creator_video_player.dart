@@ -99,7 +99,7 @@ class _CreatorVideoPlayerState extends State<CreatorVideoPlayer> {
                     _showPlayPauseButton = true;
                   });
                   //hide again pause and play button
-                  Future.delayed(Duration(seconds: 1)).then((_) {
+                  Future.delayed(const Duration(seconds: 1)).then((_) {
                     setState(() {
                       _showPlayPauseButton = false;
                     });

@@ -23,9 +23,9 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.black,
-        colorScheme: ColorScheme.dark(),
+        colorScheme: const ColorScheme.dark(),
       ),
-      home: PageController(),
+      home: const PageController(),
     );
   }
 }

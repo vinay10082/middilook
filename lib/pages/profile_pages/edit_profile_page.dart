@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -34,12 +33,12 @@ class _EditProfileState extends State<EditProfile> {
         .collection("users")
         .doc(currentUserID)
         .get();
-
+    
     userName = snapshotUser["name"];
     userImageUrl = snapshotUser["image"];
 
     setState(() {
-      userNameTextEditingController.text = userName == null ? "" : userName;
+      userNameTextEditingController.text = userName ?? "";
     });
   }
 
@@ -76,7 +75,7 @@ class _EditProfileState extends State<EditProfile> {
                     onTap: () async {
                       final pickedImageFile = await ImagePicker()
                           .pickImage(source: ImageSource.gallery);
-
+                      
                       if (pickedImageFile != null) {
                         profileImage =
                             Rx<File?>(File(pickedImageFile.path)).value;
@@ -98,6 +97,7 @@ class _EditProfileState extends State<EditProfile> {
                 ),
                 ElevatedButton(
                     onPressed: () {
+                      Get.snackbar("Wait", "Take more time as usual");
                       controllerProfile.updateCurrentUserProfilePhoto(
                         profileImage!,
                       );
@@ -131,7 +131,7 @@ class _EditProfileState extends State<EditProfile> {
                     lableString: "User Name",
                     isObscure: false,
                     iconData: Icons.person_outline,
-                    limit: 10,
+                    limit: 11,
                   ),
                 ),
                 const SizedBox(
@@ -139,6 +139,7 @@ class _EditProfileState extends State<EditProfile> {
                 ),
                 ElevatedButton(
                     onPressed: () {
+                      Get.snackbar("Wait", "Take more time as usual");
                       controllerProfile.updateCurrentUserName(
                         userNameTextEditingController.text,
                       );

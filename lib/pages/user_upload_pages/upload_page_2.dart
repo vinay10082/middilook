@@ -114,11 +114,20 @@ class _UploadDetailState extends State<UploadDetail> {
               ),
             ),
 
-            const SizedBox(height: 100),
+            const SizedBox(height: 80),
+
+            const Text("Paste Link Here",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    fontStyle: FontStyle.italic)),
+
+            const SizedBox(height: 30),
             //product link input field
             InputTextWidget(
               textEditingController: purchaseLinkTextEditingController,
-              lableString: 'Paste Link Here',
+              lableString: 'https://www.amazon.com/',
               iconData: Icons.link,
               isObscure: false,
               limit: 200,
@@ -169,7 +178,7 @@ class _UploadDetailState extends State<UploadDetail> {
                       progressColors: [
                         Colors.pink,
                       ],
-                      animationDuration: 3,
+                      animationDuration: 20,
                       backColor: Colors.white38,
                     ),
                   ),

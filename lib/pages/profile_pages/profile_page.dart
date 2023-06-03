@@ -47,7 +47,7 @@ class _MyProfileState extends State<MyProfile> {
                 Icons.arrow_back,
               ),
             ),
-            title: Text("Info"),
+            title: const Text("Info"),
           ),
           body: SingleChildScrollView(
             child: Column(
@@ -172,7 +172,7 @@ class _MyProfileState extends State<MyProfile> {
                               child: InkWell(
                                 onTap: () {
                                   //function to edit profilet
-                                  Get.to(EditProfile());
+                                  Get.to(const EditProfile());
                                 },
                                 child: const Center(
                                     child: Text(
@@ -185,7 +185,7 @@ class _MyProfileState extends State<MyProfile> {
                                 )),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 30,
                             ),
                             Container(
@@ -197,7 +197,7 @@ class _MyProfileState extends State<MyProfile> {
                                 onTap: () {
                                   //function to sing out
                                   FirebaseAuth.instance.signOut();
-                                  Get.offAll(MyHome());
+                                  Get.offAll(const MyHome());
                                   Get.snackbar("Logged Out",
                                       "you are logged out from the app.");
                                 },

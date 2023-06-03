@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CircularImageAnimation extends StatefulWidget {
   final Widget widgetAnimation;
 
-  CircularImageAnimation({required this.widgetAnimation});
+  const CircularImageAnimation({super.key, required this.widgetAnimation});
 
   @override
   State<CircularImageAnimation> createState() => _CircularImageAnimationState();

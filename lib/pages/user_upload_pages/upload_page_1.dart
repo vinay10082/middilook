@@ -53,7 +53,7 @@ class _UploadPlayerState extends State<UploadPlayer> {
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.max,
       children: [
-        SizedBox(
+        const SizedBox(
           height: 40,
         ),
 
@@ -71,7 +71,7 @@ class _UploadPlayerState extends State<UploadPlayer> {
                 setState(() => _isPlaying = value),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 40,
         ),
         //this is video player section
@@ -80,9 +80,9 @@ class _UploadPlayerState extends State<UploadPlayer> {
         ),
         Visibility(
           visible: _progressVisibility,
-          child: LinearProgressIndicator(backgroundColor: Colors.red),
+          child: const LinearProgressIndicator(backgroundColor: Colors.red),
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         Container(
@@ -114,7 +114,7 @@ class _UploadPlayerState extends State<UploadPlayer> {
                 Container(
                     alignment: Alignment.centerRight,
                     child: FloatingActionButton(
-                      shape: BeveledRectangleBorder(
+                      shape: const BeveledRectangleBorder(
                           borderRadius: BorderRadius.zero),
                       onPressed: _progressVisibility
                           ? null
@@ -138,7 +138,7 @@ class _UploadPlayerState extends State<UploadPlayer> {
                                     });
                                   });
                             },
-                      child: Icon(
+                      child: const Icon(
                         Icons.arrow_forward_ios,
                         color: Colors.white,
                       ),

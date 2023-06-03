@@ -9,8 +9,8 @@ class InputTextWidget extends StatelessWidget {
   final bool isObscure;
   final int? limit;
 
-  InputTextWidget(
-      {required this.textEditingController,
+  const InputTextWidget(
+      {super.key, required this.textEditingController,
       this.iconData,
       this.assetRefrence,
       required this.lableString,
@@ -31,8 +31,8 @@ class InputTextWidget extends StatelessWidget {
             decoration: InputDecoration(
               //label section
               labelText: lableString,
-              floatingLabelStyle: TextStyle(color: Colors.pink),
-              labelStyle: TextStyle(
+              floatingLabelStyle: const TextStyle(color: Colors.pink),
+              labelStyle: const TextStyle(
                 fontSize: 18,
               ),
 
@@ -51,7 +51,7 @@ class InputTextWidget extends StatelessWidget {
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(6),
               ),
-              focusedBorder: OutlineInputBorder(
+              focusedBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.pink)),
             )));
   }

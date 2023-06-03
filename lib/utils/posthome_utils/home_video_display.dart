@@ -9,7 +9,7 @@ class HomeVideoPlayer extends StatefulWidget {
   final String purchaseLink;
   final String videoID;
 
-  HomeVideoPlayer({
+  const HomeVideoPlayer({
     super.key,
     required this.videoFileUrl,
     required this.purchaseLink, 
@@ -119,7 +119,7 @@ class _HomeVideoPlayerState extends State<HomeVideoPlayer> {
                     _showPlayPauseButton = true;
                   });
                   //hide again pause and play button
-                  Future.delayed(Duration(seconds: 1)).then((_) {
+                  Future.delayed(const Duration(seconds: 1)).then((_) {
                     setState(() {
                       _showPlayPauseButton = false;
                     });

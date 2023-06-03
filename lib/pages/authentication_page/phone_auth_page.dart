@@ -1,10 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:middilook/global.dart';
 import 'package:middilook/utils/default_widget/input_text_widget.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
+import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
 
 import '../../server/authentication/authentication_controller.dart';
 
@@ -25,9 +27,7 @@ class _MyPhoneAuthState extends State<MyPhoneAuth> {
 
   var authenticationController = AuthenticationController.instanceAuth;
 
-  String verificationId = "";
   String smsCode = "";
-
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +74,7 @@ class _MyPhoneAuthState extends State<MyPhoneAuth> {
               height: 30,
             ),
 
-            Container(
+            SizedBox(
                         width: MediaQuery.of(context).size.width-200,
                         height: 54,
                         child: 
@@ -122,7 +122,7 @@ class _MyPhoneAuthState extends State<MyPhoneAuth> {
                           )),
                         ) 
                         : Center(
-                          child: Text("00:$start sec", style: TextStyle(color: Colors.grey,))
+                          child: Text("00:$start sec", style: const TextStyle(color: Colors.grey,))
                         ),
                       ),
             Column(
@@ -138,7 +138,7 @@ class _MyPhoneAuthState extends State<MyPhoneAuth> {
                 Expanded(child: Container(
                   height: 1,
                   color: Colors.grey,
-                  margin: EdgeInsets.symmetric(horizontal: 12),
+                  margin: const EdgeInsets.symmetric(horizontal: 12),
                 )),
                 const Text("Enter 6-digit OTP", style: TextStyle(fontSize: 16, color: Colors.white),),
                 Expanded(child: Container(
@@ -161,12 +161,14 @@ class _MyPhoneAuthState extends State<MyPhoneAuth> {
                 focusBorderColor: Colors.pink
               ),
               fieldWidth: 40,
-              style: TextStyle(fontSize: 17),
+              style: const TextStyle(fontSize: 17),
               textFieldAlignment: MainAxisAlignment.spaceBetween,
               fieldStyle: FieldStyle.underline,
               onCompleted: (pin) 
               {
-
+                setState(() {
+                  smsCode = pin;
+                });
               },
             ),
 
@@ -175,25 +177,45 @@ class _MyPhoneAuthState extends State<MyPhoneAuth> {
             ),
 
             //login button
+            showProgressBar == false?
                       Container(
                         width: MediaQuery.of(context).size.width - 100,
                         height: 54,
                         decoration: const BoxDecoration(color: Colors.white),
-                        child: InkWell(
+                        child: 
+                        InkWell(
                           onTap: () {
+
+                            setState(() {
+                              showProgressBar = true;
+                            });
                             //login user now
+                            Future.delayed(const Duration(seconds: 3),(){
+                            authenticationController
+                            .signinWithPhoneNumber(smsCode, "+91 ${phoneTextEditingController.text}");
+                            });
                           },
                           child: const Center(
                               child: Text(
-                            "login",
+                            "Lets Go",
                             style: TextStyle(
                               fontSize: 20,
                               color: Colors.black,
                               fontWeight: FontWeight.w700,
                             ),
                           )),
-                        ),
-                      ),
+                        ) 
+                      )
+                      : Container(
+                        child: 
+                      const SimpleCircularProgressBar(
+                      progressColors: [
+                        Colors.pink,
+                      ],
+                      animationDuration: 5,
+                      backColor: Colors.white38,
+                    ),
+                      )
                         ] : [],
                   )
             ],

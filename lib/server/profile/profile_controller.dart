@@ -11,7 +11,7 @@ class ProfileController extends GetxController {
   final Rx<Map<String, dynamic>> _userMap = Rx<Map<String, dynamic>>({});
   Map<String, dynamic> get userMap => _userMap.value;
 
-  Rx<String?> _userID = "".obs;
+  final Rx<String?> _userID = "".obs;
 
   updateCurrentUserID(String visitUserID) {
     _userID.value = visitUserID;
@@ -92,7 +92,7 @@ _userMap.value = {
           .doc(_userID.value)
           .update(userNameMap);
 
-      Get.offAll(MyHome());
+      Get.offAll(const MyHome());
 
       Get.snackbar("User Name", "you username is update successfully.");
     } catch (errorMsg) {
@@ -121,7 +121,7 @@ _userMap.value = {
           .doc(_userID.value)
           .update(userImageMap);
 
-      Get.offAll(MyHome());
+      Get.offAll(const MyHome());
 
       Get.snackbar(
           "User Profile Photo", "you Profile photo is update successfully.");
