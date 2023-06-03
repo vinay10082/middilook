@@ -40,13 +40,20 @@ class _MyBottomButtonBarState extends State<MyBottomButtonBar> {
       );
 
       final thumbnailImage =
-          await VideoCompress.getFileThumbnail(videoFile.path);
+          await VideoCompress.getFileThumbnail(
+            videoFile.path,
+            );
 
-      await VideoCompress.compressVideo(videoFile.path,
-          quality: VideoQuality.LowQuality);
+     final compressedVideoFile = await VideoCompress.compressVideo(
+        videoFile.path,
+        quality: VideoQuality.LowQuality,
+        deleteOrigin: false,
+        );
+
+      
 
       Get.to(UploadPlayer(
-          videoFile: File(videoFile.path),
+          videoFile: compressedVideoFile!.file,
           videoPath: videoFile.path,
           thumbnailImage: thumbnailImage));
     }

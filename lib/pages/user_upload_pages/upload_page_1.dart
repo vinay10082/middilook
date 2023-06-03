@@ -14,7 +14,7 @@ class UploadPlayer extends StatefulWidget {
       required this.videoPath,
       required this.thumbnailImage});
 
-  final File videoFile;
+  final File? videoFile;
   final String videoPath;
   final File thumbnailImage;
 
@@ -34,7 +34,7 @@ class _UploadPlayerState extends State<UploadPlayer> {
   bool _progressVisibility = false;
 
   void _loadVideo() {
-    _trimmer.loadVideo(videoFile: widget.videoFile);
+    _trimmer.loadVideo(videoFile: widget.videoFile!);
     setState(() {
       isVideoCompressing = false;
     });
@@ -64,7 +64,7 @@ class _UploadPlayerState extends State<UploadPlayer> {
             trimmer: _trimmer,
             viewerHeight: 50,
             viewerWidth: MediaQuery.of(context).size.width,
-            maxVideoLength: const Duration(seconds: 45),
+            maxVideoLength: const Duration(seconds: 30),
             onChangeStart: (value) => _startValue = value,
             onChangeEnd: (value) => _endValue = value,
             onChangePlaybackState: (value) =>

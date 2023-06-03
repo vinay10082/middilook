@@ -89,7 +89,7 @@ class _UploadDetailState extends State<UploadDetail> {
               height: 30,
             ),
             Container(
-              padding: const EdgeInsets.only(left: 50, right: 50),
+              padding: const EdgeInsets.only(left: 30, right: 30),
               child: GridView.builder(
                 itemCount: stores.length,
                 shrinkWrap: true,
@@ -130,7 +130,7 @@ class _UploadDetailState extends State<UploadDetail> {
               lableString: 'https://www.amazon.com/',
               iconData: Icons.link,
               isObscure: false,
-              limit: 200,
+              limit: 1000,
             ),
 
             const SizedBox(
@@ -178,7 +178,7 @@ class _UploadDetailState extends State<UploadDetail> {
                       progressColors: [
                         Colors.pink,
                       ],
-                      animationDuration: 20,
+                      animationDuration: 60,
                       backColor: Colors.white38,
                     ),
                   ),
