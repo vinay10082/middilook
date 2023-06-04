@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
@@ -58,47 +57,37 @@ class AuthenticationController extends GetxController {
     try 
     {
       AuthCredential credential = PhoneAuthProvider.credential(verificationId: userVerificationID, smsCode: smsCode);
+      // await FirebaseAuth.instance.signInWithCredential(credential);
+
 
       //1. Create user in the firebase authentication
-      UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithCredential(credential);
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+
 
       DocumentSnapshot snapshotUser = await FirebaseFirestore.instance
         .collection("users")
         .doc(userCredential.user!.uid)
         .get();
-
+      
       userModel.User user;
 
-      if(snapshotUser["name"] != "" || snapshotUser["image"] != "")
-      {
-      // save user data to the firebase database
-      user = userModel.User(
-        email: "",
-        name: snapshotUser["name"],
-        password: "",
-        image: snapshotUser["image"],
-        phone: phoneNumber,
-        uid: userCredential.user!.uid,
-      );
-      }
-      else
+      if(!snapshotUser.exists)
       {
     // save user data to the firebase database
       user = userModel.User(
-        email: "",
         name: "",
+        email: "",
         password: "",
         image: "",
         phone: phoneNumber,
         uid: userCredential.user!.uid,
       );
-      }
 
       await FirebaseFirestore.instance
           .collection("users")
           .doc(userCredential.user!.uid)
           .set(user.toJson());
+      }
       
 
       Get.snackbar("Logged-in Successful", "you're logged-in successfully");
@@ -111,7 +100,7 @@ class AuthenticationController extends GetxController {
     catch (error) 
     {
       Get.snackbar("Login Unsuccessful", "Error Occured during signin authentication.");
-
+      Get.offAll(const MyHome());
       showProgressBar = false;
     }
   }

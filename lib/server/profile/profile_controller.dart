@@ -59,8 +59,6 @@ class ProfileController extends GetxController {
       
       videosVisitCountList
       .add((currentUserVideos.docs[i].data() as dynamic)["purchaseLinkCount"] as int);
-
-      print(videosVisitCountList[i]);
     }
     // print(totalPurchaseLinkVisited);
 

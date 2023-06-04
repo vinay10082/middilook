@@ -3,19 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:middilook/pages/home_page.dart';
 import 'package:middilook/server/authentication/authentication_controller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  final prefs = await SharedPreferences.getInstance();
+  final showHome = prefs.getBool('showHome') ?? false;
 
   await Firebase.initializeApp().then((value) {
     Get.put(AuthenticationController());
   });
 
-  runApp(const MainApp());
+  runApp(MainApp(showHome: showHome));
 }
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+  const MainApp({super.key, required this.showHome});
+  final bool showHome;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +30,7 @@ class MainApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.black,
         colorScheme: const ColorScheme.dark(),
       ),
-      home: const PageController(),
+      home: showHome ? PageController() : MyOnbordingScreen(),
     );
   }
 }
