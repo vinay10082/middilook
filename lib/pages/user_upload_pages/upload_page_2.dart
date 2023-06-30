@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
-import 'package:url_launcher/url_launcher.dart';
+// import 'package:url_launcher/url_launcher.dart';
 
 import '../../global.dart';
 import '../../server/upload_video/upload_controller.dart';
@@ -29,32 +29,32 @@ class _UploadDetailState extends State<UploadDetail> {
   TextEditingController purchaseLinkTextEditingController =
       TextEditingController();
 
-  List<List<String>> stores = [
-    [
-      'lib/assets/amazon.png',
-      'https://www.amazon.in/gp/css/order-history',
-    ],
-    [
-      'lib/assets/shopclues.png',
-      'https://smo.shopclues.com/myorders',
-    ],
-    [
-      'lib/assets/flipkart.png',
-      'https://www.flipkart.com/rv/orders',
-    ],
-    [
-      'lib/assets/snapdeal.png',
-      'https://m.snapdeal.com/myorders',
-    ],
-    [
-      'lib/assets/myntra.png',
-      'https://www.myntra.com/my/orders',
-    ],
-    [
-      'lib/assets/ajio.png',
-      'https://www.ajio.com/my-account/orders',
-    ],
-  ];
+  // List<List<String>> stores = [
+  //   [
+  //     'lib/assets/amazon.png',
+  //     'https://www.amazon.in/gp/css/order-history',
+  //   ],
+  //   [
+  //     'lib/assets/shopclues.png',
+  //     'https://smo.shopclues.com/myorders',
+  //   ],
+  //   [
+  //     'lib/assets/flipkart.png',
+  //     'https://www.flipkart.com/rv/orders',
+  //   ],
+  //   [
+  //     'lib/assets/snapdeal.png',
+  //     'https://m.snapdeal.com/myorders',
+  //   ],
+  //   [
+  //     'lib/assets/myntra.png',
+  //     'https://www.myntra.com/my/orders',
+  //   ],
+  //   [
+  //     'lib/assets/ajio.png',
+  //     'https://www.ajio.com/my-account/orders',
+  //   ],
+  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -75,44 +75,44 @@ class _UploadDetailState extends State<UploadDetail> {
               limit: 16,
             ),
 
-            const SizedBox(
-              height: 30,
-            ),
+            // const SizedBox(
+            //   height: 30,
+            // ),
             //Stores grid
-            const Text("Select Stores and paste your product link below",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25,
-                    fontStyle: FontStyle.italic)),
-            const SizedBox(
-              height: 30,
-            ),
-            Container(
-              padding: const EdgeInsets.only(left: 30, right: 30),
-              child: GridView.builder(
-                itemCount: stores.length,
-                shrinkWrap: true,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  // childAspectRatio: 0.6,
-                  crossAxisSpacing: 5,
-                  mainAxisSpacing: 5,
-                ),
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () async {
-                      await launchUrl(Uri.parse(stores[index][1]),
-                          mode: LaunchMode.externalApplication);
-                    },
-                    child: Image.asset(
-                      stores[index][0],
-                      fit: BoxFit.fill,
-                    ),
-                  );
-                },
-              ),
-            ),
+            // const Text("Select Stores and paste your product link below",
+            //     textAlign: TextAlign.center,
+            //     style: TextStyle(
+            //         fontWeight: FontWeight.bold,
+            //         fontSize: 25,
+            //         fontStyle: FontStyle.italic)),
+            // const SizedBox(
+            //   height: 30,
+            // ),
+            // Container(
+            //   padding: const EdgeInsets.only(left: 30, right: 30),
+            //   child: GridView.builder(
+            //     itemCount: stores.length,
+            //     shrinkWrap: true,
+            //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            //       crossAxisCount: 3,
+            //       // childAspectRatio: 0.6,
+            //       crossAxisSpacing: 5,
+            //       mainAxisSpacing: 5,
+            //     ),
+            //     itemBuilder: (context, index) {
+            //       return GestureDetector(
+            //         onTap: () async {
+            //           await launchUrl(Uri.parse(stores[index][1]),
+            //               mode: LaunchMode.externalApplication);
+            //         },
+            //         child: Image.asset(
+            //           stores[index][0],
+            //           fit: BoxFit.fill,
+            //         ),
+            //       );
+            //     },
+            //   ),
+            // ),
 
             const SizedBox(height: 80),
 

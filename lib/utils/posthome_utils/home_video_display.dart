@@ -3,11 +3,13 @@ import 'package:get/get.dart';
 import 'package:middilook/server/home_video_display/home_video_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 class HomeVideoPlayer extends StatefulWidget {
   final String videoFileUrl;
   final String purchaseLink;
   final String videoID;
+  
 
   const HomeVideoPlayer({
     super.key,
@@ -27,23 +29,32 @@ class _HomeVideoPlayerState extends State<HomeVideoPlayer> {
 
   VideoPlayerController? playerController;
 
-  bool isPlayerInitialized = true;
+  var timestamp;
 
   @override
   void initState() {
     super.initState();
 
-    playerController = VideoPlayerController.network(widget.videoFileUrl)
+      playerController = VideoPlayerController.network(widget.videoFileUrl)
       ..initialize().then((value) {
+        
         setState(() {
-          isPlayerInitialized = false;
+          timestamp = DateTime.now().millisecondsSinceEpoch;
         });
 
-        playerController!.play();
-        playerController!.setLooping(true);
-        playerController!.setVolume(2);
+        // playerController!.play();
+        // playerController!.setLooping(true);
+        // playerController!.setVolume(2);
       });
   }
+
+  // @override
+  // void deactivate() {
+  //   // TODO: implement deactivate
+  //   super.deactivate();
+
+  //   playerController!.pause();
+  // }
 
   @override
   void dispose() {
@@ -56,7 +67,8 @@ class _HomeVideoPlayerState extends State<HomeVideoPlayer> {
 
   @override
   Widget build(BuildContext context) {
-    if (isPlayerInitialized == false && !playerController!.value.hasError) {
+
+    if (playerController!.value.isInitialized && !playerController!.value.hasError) {
       return Stack(
           // children: (playerController!.value.isInitialized && !playerController!.value.hasError)?
           children: <Widget>[
@@ -70,10 +82,29 @@ class _HomeVideoPlayerState extends State<HomeVideoPlayer> {
               child: Center(
                 child: AspectRatio(
                   aspectRatio: playerController!.value.aspectRatio,
-                  child: VideoPlayer(playerController!),
+                  child: VisibilityDetector(
+                    key:Key(timestamp.toString() + "_" + widget.videoFileUrl),
+                    onVisibilityChanged: (VisibilityInfo info) {
+                    var visiblePercentage = info.visibleFraction * 100;
+                  if (mounted) {
+                    if(playerController!.value.isInitialized){
+
+                      if (visiblePercentage > 50) {
+                      playerController!.play();
+                      playerController!.setLooping(true);
+                      playerController!.setVolume(2);
+                      }
+                      else {
+                        playerController!.seekTo(const Duration(milliseconds: 0));
+                        playerController!.pause();
+                        }
+                    }
+                  }
+              },
+              child: VideoPlayer(playerController!),
+                  )),
                 ),
               ),
-            ),
 
             //GestureDetector(child: Container(...), onTap: () { _show = true; })
             GestureDetector(
@@ -102,10 +133,8 @@ class _HomeVideoPlayerState extends State<HomeVideoPlayer> {
                   mode: LaunchMode.externalApplication);
                   }
                 },
-                // onDoubleTap: () async {
-                //   await launchUrl(Uri.parse(widget.purchaseLink),
-                //       mode: LaunchMode.externalApplication);
-                // },
+
+                //
                 onTap: () {
                   setState(() {
                     if (playerController!.value.isPlaying) {
@@ -126,15 +155,7 @@ class _HomeVideoPlayerState extends State<HomeVideoPlayer> {
                   });
                 })
           ]
-          // :
-          // [
-          //     Center(
-          //       child: CircularProgressIndicator(
-          //         color: Colors.white,
-          //       ),
-          //     )
-          // ],
-          );
+        );
     }
 
     return const Center(
