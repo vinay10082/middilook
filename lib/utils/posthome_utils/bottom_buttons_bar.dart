@@ -5,7 +5,9 @@ import 'package:image_picker/image_picker.dart';
 
 import 'package:middilook/pages/authentication_page/phone_auth_page.dart';
 import 'package:middilook/pages/search_pages/search_page.dart';
+import 'package:showcaseview/showcaseview.dart';
 import 'package:video_compress/video_compress.dart';
+import 'package:middilook/global.dart';
 
 import '../../pages/profile_pages/profile_page.dart';
 import '../../pages/user_upload_pages/upload_page_1.dart';
@@ -69,14 +71,28 @@ class _MyBottomButtonBarState extends State<MyBottomButtonBar> {
               onPressed: () {
                 Get.to(const MySearch());
               },
-              icon: widget.searchicon,
+              icon: Showcase(
+                key: key2, 
+                description: 'Explore more videos',
+                targetShapeBorder: const CircleBorder(),
+                descriptionPadding: const EdgeInsets.all(8.0),
+                targetPadding: const EdgeInsets.all(10),
+                child: widget.searchicon,
+              ),
               iconSize: 30,
               color: Colors.white,
             ),
             
 //this is add video button
             IconButton(
-              icon: widget.uploadicon,
+              icon: Showcase(
+                key: key1, 
+                description: 'Upload video and get rewards',
+                targetShapeBorder: const CircleBorder(),
+                descriptionPadding: const EdgeInsets.all(8.0),
+                targetPadding: const EdgeInsets.all(10),
+                child: widget.uploadicon
+                ),
               iconSize: 55,
               color: Colors.white,
               onPressed: () {
@@ -96,18 +112,6 @@ class _MyBottomButtonBarState extends State<MyBottomButtonBar> {
               },
             ),
 
-// //this is search button
-// IconButton(
-//   onPressed: ()
-//   {
-//     //this is function to oper search page
-//     // Get.to(MySearch());
-//   },
-//   icon: widget.searchicon,
-//   iconSize: 30,
-//   color: Colors.white,
-//   ),
-
 //this is profile button
             IconButton(
               onPressed: () {
@@ -124,7 +128,14 @@ class _MyBottomButtonBarState extends State<MyBottomButtonBar> {
                   }
                 });
               },
-              icon: Icon(widget.profileicon),
+              icon: Showcase(
+                key: key3, 
+                description: 'View your profile',
+                targetShapeBorder: const CircleBorder(),
+                descriptionPadding: const EdgeInsets.all(8.0),
+                targetPadding: const EdgeInsets.all(10),
+                child: Icon(widget.profileicon),
+              ),
               iconSize: 25,
               color: Colors.white,
             ),

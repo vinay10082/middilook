@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:middilook/pages/home_page.dart';
+import 'package:middilook/pages/profile_pages/profile_page.dart';
 
 class ProfileController extends GetxController {
 
@@ -41,6 +42,8 @@ class ProfileController extends GetxController {
     List<String> videosList = [];
     List<int> videosVisitCountList=[];
 
+    List<String> videoIDList = [];
+
     //get user's videos info
     var currentUserVideos = await FirebaseFirestore.instance
         .collection("videos")
@@ -59,6 +62,9 @@ class ProfileController extends GetxController {
       
       videosVisitCountList
       .add((currentUserVideos.docs[i].data() as dynamic)["purchaseLinkCount"] as int);
+
+      videoIDList
+      .add((currentUserVideos.docs[i].data() as dynamic)["videoID"] as String);
     }
     // print(totalPurchaseLinkVisited);
 
@@ -72,6 +78,7 @@ _userMap.value = {
       "thumbnailsList": thumbnailsList,
       "videosList": videosList,
       "videosVisitCountList": videosVisitCountList,
+      "videoIDList": videoIDList,
     };
 
     
@@ -90,7 +97,7 @@ _userMap.value = {
           .doc(_userID.value)
           .update(userNameMap);
 
-      Get.offAll(const MyHome());
+      Get.offAll(MyProfile());
 
       Get.snackbar("User Name", "you username is update successfully.");
     } catch (errorMsg) {
@@ -119,7 +126,7 @@ _userMap.value = {
           .doc(_userID.value)
           .update(userImageMap);
 
-      Get.offAll(const MyHome());
+      Get.offAll(MyProfile());
 
       Get.snackbar(
           "User Profile Photo", "you Profile photo is update successfully.");
@@ -127,4 +134,5 @@ _userMap.value = {
       Get.snackbar("Error Updating Profile Photo", "Please try again");
     }
   }
+
 }

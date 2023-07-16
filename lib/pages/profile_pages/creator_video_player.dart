@@ -1,14 +1,24 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:middilook/pages/profile_pages/profile_page.dart';
+import 'package:middilook/utils/default_widget/alert_dialog_widget.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../server/profile/profile_controller.dart';
 
 class CreatorVideoPlayer extends StatefulWidget {
-  const CreatorVideoPlayer({super.key, required this.videoUrl, required this.videoVisitedCount});
+  const CreatorVideoPlayer({
+    super.key, 
+    required this.videoUrl, 
+    required this.videoVisitedCount, 
+    required this.videoID
+    });
 
   final String videoUrl;
   final String videoVisitedCount;
+  final String videoID;
 
   @override
   State<CreatorVideoPlayer> createState() => _CreatorVideoPlayerState();
@@ -105,26 +115,81 @@ class _CreatorVideoPlayerState extends State<CreatorVideoPlayer> {
                     });
                   });
                 }),
+
                 Container(
-                  // child: Center(
-                  //   child: Text(widget.videoVisitedCount),
-                  // ),
-                  padding: const EdgeInsets.only(top: 50, left: 20),
+                  padding: const EdgeInsets.only(bottom: 60),
                   width: MediaQuery.of(context).size.width,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                       
-                      Text(widget.videoVisitedCount, style: const TextStyle(fontSize: 20, color: Colors.white,decoration: TextDecoration.none, fontWeight: FontWeight.bold),),
-          
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget> [
+                      const Icon(Icons.add_link_rounded, size: 40,),
+
+                      Text(widget.videoVisitedCount+" ", style: const TextStyle(color: Colors.white, decoration: TextDecoration.none, fontSize: 20)),
+                      
                       const SizedBox(height: 10,),
 
-                      const Text("Visited", style: TextStyle(fontSize: 10, color: Colors.white, decoration: TextDecoration.none),)
-                     
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 40,
+                        alignment: Alignment.bottomCenter,
+                        color: Color.fromARGB(41, 255, 255, 255),
+                        child: GestureDetector(
+                          child: const Center(
+                            child: Icon(Icons.delete, size: 40,),
+                          ),
+                          onTap: () {
+                            //delete video function
+                            showDialog(
+                              context: context, 
+                              barrierDismissible: false,
+                              builder: (BuildContext context) {
+                                return AlertDialogBox(
+                                  alertTitle: 'Delete Video',
+                                  alertContent: 'Are you sure you want to delete this video ?',
+                                  alertAction: 'Delete',
+                                  actionFunction: () async {
+                                    try 
+                                    {
+                                    //delete thumbnail from storage
+                                    await FirebaseStorage.instance
+                                    .ref()
+                                    .child("All Videos")
+                                    .child(widget.videoID)
+                                    .delete();
+
+                                    //delete video from storage
+                                    await FirebaseStorage.instance
+                                    .ref()
+                                    .child("All Thumbnails")
+                                    .child(widget.videoID)
+                                    .delete();
+
+                                    //function to delete the video database
+                                    await FirebaseFirestore.instance
+                                    .collection('videos')
+                                    .doc(widget.videoID)
+                                    .delete();
+
+                                    Get.snackbar("Video Deleted Successfully", "we have deleted this video parmanently from your account.");
+
+                                    Get.off(MyProfile());
+                                    } 
+                                    catch (e) 
+                                    {
+                                    Get.snackbar("Unable to delete", "There is error occur while deleting video.");
+                                    Get.off(MyProfile());
+                                    }
+                                  },
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      )
                     ],
                   ),
-                )
+                ),
           ]
           );
     }

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:middilook/server/home_video_display/home_video_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
+
+import '../../server/home_video_display/home_video_controller.dart';
 
 class HomeVideoPlayer extends StatefulWidget {
   final String videoFileUrl;
@@ -24,10 +25,12 @@ class HomeVideoPlayer extends StatefulWidget {
 
 class _HomeVideoPlayerState extends State<HomeVideoPlayer> {
 
-  //controller for video display screen
-  final ControllerHomeVideos controllerHomeVideos = Get.put(ControllerHomeVideos());
-
   VideoPlayerController? playerController;
+
+    //controller for video display screen
+  final ControllerHomeVideos controllerHomeVideos =
+      Get.put(ControllerHomeVideos());
+
 
   var timestamp;
 
@@ -37,24 +40,11 @@ class _HomeVideoPlayerState extends State<HomeVideoPlayer> {
 
       playerController = VideoPlayerController.network(widget.videoFileUrl)
       ..initialize().then((value) {
-        
         setState(() {
           timestamp = DateTime.now().millisecondsSinceEpoch;
         });
-
-        // playerController!.play();
-        // playerController!.setLooping(true);
-        // playerController!.setVolume(2);
       });
   }
-
-  // @override
-  // void deactivate() {
-  //   // TODO: implement deactivate
-  //   super.deactivate();
-
-  //   playerController!.pause();
-  // }
 
   @override
   void dispose() {
@@ -69,23 +59,11 @@ class _HomeVideoPlayerState extends State<HomeVideoPlayer> {
   Widget build(BuildContext context) {
 
     if (playerController!.value.isInitialized && !playerController!.value.hasError) {
-      return Stack(
-          // children: (playerController!.value.isInitialized && !playerController!.value.hasError)?
-          children: <Widget>[
-            Container(
-              // padding: const EdgeInsets.fromLTRB(0, 100, 0, 0),
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              decoration: const BoxDecoration(
-                color: Colors.black,
-              ),
-              child: Center(
-                child: AspectRatio(
-                  aspectRatio: playerController!.value.aspectRatio,
-                  child: VisibilityDetector(
-                    key:Key(timestamp.toString() + "_" + widget.videoFileUrl),
-                    onVisibilityChanged: (VisibilityInfo info) {
-                    var visiblePercentage = info.visibleFraction * 100;
+      return VisibilityDetector(
+        key: Key(timestamp.toString() + "_" + widget.videoFileUrl),
+        onVisibilityChanged: (VisibilityInfo info) 
+        {
+          var visiblePercentage = info.visibleFraction * 100;
                   if (mounted) {
                     if(playerController!.value.isInitialized){
 
@@ -100,9 +78,23 @@ class _HomeVideoPlayerState extends State<HomeVideoPlayer> {
                         }
                     }
                   }
-              },
-              child: VideoPlayer(playerController!),
-                  )),
+        },
+        child: Stack(
+          // children: (playerController!.value.isInitialized && !playerController!.value.hasError)?
+          children: <Widget>[
+            
+            Container(
+              // padding: const EdgeInsets.fromLTRB(0, 100, 0, 0),
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              decoration: const BoxDecoration(
+                color: Colors.black,
+              ),
+              child: Center(
+                child: AspectRatio(
+                  aspectRatio: playerController!.value.aspectRatio,
+                  child: VideoPlayer(playerController!)
+                  ),
                 ),
               ),
 
@@ -155,6 +147,7 @@ class _HomeVideoPlayerState extends State<HomeVideoPlayer> {
                   });
                 })
           ]
+        ),
         );
     }
 

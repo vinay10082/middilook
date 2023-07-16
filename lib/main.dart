@@ -1,26 +1,24 @@
+import 'dart:async';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:middilook/pages/home_page.dart';
 import 'package:middilook/server/authentication/authentication_controller.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  final prefs = await SharedPreferences.getInstance();
-  final showHome = prefs.getBool('showHome') ?? false;
 
   await Firebase.initializeApp().then((value) {
     Get.put(AuthenticationController());
   });
 
-  runApp(MainApp(showHome: showHome));
+  runApp(const MainApp());
 }
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key, required this.showHome});
-  final bool showHome;
+  const MainApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,23 +28,74 @@ class MainApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.black,
         colorScheme: const ColorScheme.dark(),
       ),
-      home: showHome ? PageController() : MyOnbordingScreen(),
+      home: const SplashScreen()
     );
   }
 }
 
-class PageController extends StatefulWidget {
-  const PageController({super.key});
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
-  @override
-  State<PageController> createState() => _PageControllerState();
-}
-
-class _PageControllerState extends State<PageController> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: MyHome(),
+    return Scaffold(
+      body: ShowCaseWidget(
+        builder: Builder(
+          builder: (context) => const MyHome(),
+        )
+      )
+    );
+  }
+}
+
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+
+    Timer(const Duration(seconds: 3), () {
+
+      Get.off(const HomePage());
+
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        color: Colors.black,
+        child: Center(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 200,
+              ),
+              Container(
+                height: 150,
+                width: 150,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(25)),
+                  image: DecorationImage(image: AssetImage('lib/assets/logo_icon.png'))
+                ),
+              ),
+              Container(
+                height: 100,
+                width: 200,
+                child: Image.asset('lib/assets/logo.png'),
+              )
+            ],
+          )
+        ),
+      ),
     );
   }
 }

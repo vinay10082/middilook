@@ -97,7 +97,7 @@ class _EditProfileState extends State<EditProfile> {
                 ),
                 ElevatedButton(
                     onPressed: () {
-                      Get.snackbar("Wait", "Take more time as usual");
+                      Get.snackbar('Wait', 'uploading picture');
                       controllerProfile.updateCurrentUserProfilePhoto(
                         profileImage!,
                       );
@@ -139,7 +139,6 @@ class _EditProfileState extends State<EditProfile> {
                 ),
                 ElevatedButton(
                     onPressed: () {
-                      Get.snackbar("Wait", "Take more time as usual");
                       controllerProfile.updateCurrentUserName(
                         userNameTextEditingController.text,
                       );

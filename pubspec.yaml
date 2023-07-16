@@ -10,8 +10,8 @@ dependencies:
   # camera: ^0.9.4+5
   simple_circular_progress_bar: ^1.0.2
   smooth_page_indicator: ^1.0.2
-  shared_preferences: ^2.1.1
-  animated_text_kit: ^4.2.2
+  showcaseview: ^2.0.3
+  shared_preferences: ^2.2.0
   get: ^4.6.5
   otp_text_field: ^1.1.1
   image_picker: ^0.8.7
@@ -54,7 +54,5 @@ flutter_native_splash:
   web: false
   color: "#000000"
   image: "lib/assets/splash_icon.png"
-  branding: "lib/assets/logo.png"
   android_12:
     image: "lib/assets/splash_icon.png"
-    branding: "lib/assets/logo.png"

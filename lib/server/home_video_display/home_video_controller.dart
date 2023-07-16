@@ -15,7 +15,7 @@ class ControllerHomeVideos extends GetxController {
     homeVideosList.bindStream(
       FirebaseFirestore.instance
         .collection("videos")
-        .orderBy("purchaseLinkCount", descending: true)
+        .orderBy("publishedDateTime", descending: true)
         .snapshots()
         .map((QuerySnapshot snapshotQuery) {
           

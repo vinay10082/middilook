@@ -5,6 +5,7 @@ import 'package:middilook/pages/home_page.dart';
 import 'package:middilook/pages/profile_pages/creator_video_player.dart';
 import 'package:middilook/pages/profile_pages/edit_profile_page.dart';
 import 'package:middilook/server/profile/profile_controller.dart';
+import 'package:middilook/utils/default_widget/alert_dialog_widget.dart';
 
 class MyProfile extends StatefulWidget {
   const MyProfile({super.key});
@@ -41,7 +42,7 @@ class _MyProfileState extends State<MyProfile> {
           appBar: AppBar(
             leading: IconButton(
               onPressed: () {
-                Get.back();
+                Get.offAll(MyHome());
               },
               icon: const Icon(
                 Icons.arrow_back,
@@ -195,11 +196,24 @@ class _MyProfileState extends State<MyProfile> {
                                   const BoxDecoration(color: Colors.white),
                               child: InkWell(
                                 onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (BuildContext context) {
+                                      return AlertDialogBox(
+                                        alertTitle: 'Log Out', 
+                                        alertContent: 'Are you sure you want to logout ?',
+                                        alertAction: 'Yes',
+                                        actionFunction: () {
                                   //function to sing out
                                   FirebaseAuth.instance.signOut();
                                   Get.offAll(const MyHome());
                                   Get.snackbar("Logged Out",
                                       "you are logged out from the app.");
+                                        },
+                                      );
+                                    }
+                                  );
                                 },
                                 child: const Center(
                                     child: Text(
@@ -243,9 +257,11 @@ class _MyProfileState extends State<MyProfile> {
 
                     String visitCount = eachVideoVisitCount.toString();
 
+                    String eachVideoID = controllerProfile.userMap["videoIDList"][index];
+
                     return GestureDetector(
                         onTap: () {
-                          Get.to(CreatorVideoPlayer(videoUrl: eachVideoUrl, videoVisitedCount: visitCount));
+                          Get.to(CreatorVideoPlayer(videoUrl: eachVideoUrl, videoVisitedCount: visitCount, videoID: eachVideoID,));
                         },
                         child: Image.network(
                           eachThumbnailUrl,
