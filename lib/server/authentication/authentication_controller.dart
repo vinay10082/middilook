@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:middilook/pages/home_page.dart';
+import 'package:middilook/main.dart';
 
 import '../../global.dart';
 import 'user.dart' as userModel;
@@ -92,15 +92,14 @@ class AuthenticationController extends GetxController {
 
       Get.snackbar("Logged-in Successful", "you're logged-in successfully");
 
-      Get.offAll(const MyHome());
+      Get.offAll(const HomePage());
 
       showProgressBar = false;
-
     } 
     catch (error) 
     {
       Get.snackbar("Login Unsuccessful", "Error Occured during signin authentication.");
-      Get.offAll(const MyHome());
+      Get.offAll(const HomePage());
       showProgressBar = false;
     }
   }

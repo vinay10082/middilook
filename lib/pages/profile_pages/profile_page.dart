@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:middilook/pages/home_page.dart';
+import 'package:middilook/main.dart';
 import 'package:middilook/pages/profile_pages/creator_video_player.dart';
 import 'package:middilook/pages/profile_pages/edit_profile_page.dart';
 import 'package:middilook/server/profile/profile_controller.dart';
@@ -42,7 +42,7 @@ class _MyProfileState extends State<MyProfile> {
           appBar: AppBar(
             leading: IconButton(
               onPressed: () {
-                Get.offAll(MyHome());
+                Get.offAll(const HomePage());
               },
               icon: const Icon(
                 Icons.arrow_back,
@@ -207,7 +207,7 @@ class _MyProfileState extends State<MyProfile> {
                                         actionFunction: () {
                                   //function to sing out
                                   FirebaseAuth.instance.signOut();
-                                  Get.offAll(const MyHome());
+                                  Get.offAll(const HomePage());
                                   Get.snackbar("Logged Out",
                                       "you are logged out from the app.");
                                         },

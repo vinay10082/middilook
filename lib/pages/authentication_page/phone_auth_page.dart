@@ -21,7 +21,7 @@ class _MyPhoneAuthState extends State<MyPhoneAuth> {
 
   TextEditingController phoneTextEditingController = TextEditingController();
 
-  int start = 30;
+  int start = 59;
   bool isOtpSent1 = false;
   bool isOtpSent2 = false;
 
@@ -100,7 +100,7 @@ class _MyPhoneAuthState extends State<MyPhoneAuth> {
                                 setState(() {
                                   timer.cancel();
                                   isOtpSent1 = false;
-                                  start = 30;
+                                  start = 59;
                                 });
                               }
                               else{

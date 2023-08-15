@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:middilook/pages/home_page.dart';
+import 'package:middilook/main.dart';
 
 import '../../global.dart';
 import 'video.dart';
@@ -101,7 +101,7 @@ class UploadController extends GetxController {
       //
       //here the code of progress bar
       //
-      Get.offAll(const MyHome());
+      Get.offAll(const HomePage());
 
       //off the progress indicator bar
       showProgressBar = false;
@@ -111,7 +111,7 @@ class UploadController extends GetxController {
       //off the progress indicator bar
       showProgressBar = false;
 
-      Get.offAll(const MyHome());
+      Get.offAll(const HomePage());
 
       Get.snackbar("video Upload Unseccessfull",
           "Error occured, your video is not uploaded. Try Again.");
